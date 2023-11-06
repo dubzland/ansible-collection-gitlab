@@ -1,0 +1,10 @@
+---
+extends: default
+ignore: |
+  .tox/
+  .venv/
+  .gitlab-ci.yml
+  molecule/
+rules:
+  line-length:
+    allow-non-breakable-words: true

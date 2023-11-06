@@ -1,0 +1,16 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: molecule-gitlab
+    image: "gitlab-registry.dubzland.net/dubzland/docker-ci-${MOLECULE_DISTRO:-debian:bookworm-slim}"
+    privileged: true
+    pre_build_image: true
+    override_command: false
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+provisioner:
+  name: ansible

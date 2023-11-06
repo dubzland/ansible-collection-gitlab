@@ -1,0 +1,3 @@
+{{ ansible_managed | comment }}
+deb [signed-by={{ gitlab_server_gpg_key_dest }}] {{ gitlab_server_repo_url }} {{ ansible_distribution_release | lower }} main
+deb-src [signed-by={{ gitlab_server_gpg_key_dest }}] {{ gitlab_server_repo_url }} {{ ansible_distribution_release | lower }} main

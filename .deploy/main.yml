@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Template out the galaxy.yml file.
+      ansible.builtin.template:
+        src: templates/galaxy.yml.j2
+        dest: ../galaxy.yml
+
+    - name: Build the collection.
+      ansible.builtin.command:
+        cmd: ansible-galaxy collection build
+        chdir: ../

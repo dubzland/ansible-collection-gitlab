@@ -1,0 +1,43 @@
+---
+- name: Set os-specific variables
+  ansible.builtin.include_vars:
+    file: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml"
+        - "{{ ansible_distribution }}.yml"
+      paths:
+        - "{{ role_path }}/vars"
+      skip: true
+
+- name: Ensure Gitlab prerequisites are installed
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ gitlab_server_prerequisites }}"
+
+- name: Ensure the Gitlab gpg key is present
+  ansible.builtin.get_url:
+    url: "{{ gitlab_server_gpg_key_url }}"
+    dest: "{{ gitlab_server_gpg_key_dest }}"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Ensure the Gitlab repository is available
+  ansible.builtin.template:
+    src: etc/apt/sources.list.d/gitlab_gitlab-ee.list.j2
+    dest: /etc/apt/sources.list.d/gitlab_gitlab-ee.list
+    owner: root
+    group: root
+    mode: '0644'
+  register: gitlab_repo
+
+- name: Update the package cache  # noqa: no-handler
+  ansible.builtin.apt:
+    update_cache: true
+  when: gitlab_repo.changed
+
+- name: Ensure Gitlab is installed
+  ansible.builtin.package:
+    name: gitlab-ee

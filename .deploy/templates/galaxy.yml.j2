@@ -1,0 +1,43 @@
+---
+namespace: dubzland
+name: gitlab
+version: {{ COLLECTION_VERSION }}
+readme: README.md
+authors:
+  - Josh Williams <jdubz@dubzland.net>
+description: Installs and configures the components of the GitLab platform.
+license:
+  - MIT
+tags:
+  - linux
+  - debian
+  - ubuntu
+  - gitlab
+  - devops
+  - git
+
+dependencies:
+  'community.general': '*'
+
+repository: https://git.dubzland.net/dubzland/ansible_collection_gitlab
+
+# The URL to any online docs
+documentation: https://git.dubzland.net/dubzland/ansible_collection_gitlab
+
+# The URL to the homepage of the collection/project
+homepage: https://git.dubzland.net/dubzland/ansible_collection_gitlab
+
+# The URL to the collection issue tracker
+issues: https://git.dubzland.net/dubzland/ansible_collection_gitlab/-/issues
+build_ignore:
+  - extensions
+  - requirements*.txt
+  - tox.ini
+  - .ansible-lint
+  - .cache
+  - .deploy
+  - .gitignore
+  - .gitlab-ci.yml
+  - .tox
+  - .venv
+  - .yamllint

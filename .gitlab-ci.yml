@@ -1,0 +1,119 @@
+---
+
+services:
+  - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:24.0.7-dind
+    alias: docker
+
+variables:
+  DOCKER_BUILDKIT: 1
+  DOCKER_TLS_CERTDIR: "/certs"
+  BASH_ENV: /root/.bashrc
+  ANSIBLE_COLLECTIONS_PATH: $CI_BUILDS_DIR/ansible/collections
+  GIT_CLONE_PATH: $ANSIBLE_COLLECTIONS_PATH/ansible_collections/$CI_PROJECT_NAMESPACE/gitlab
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PY_COLORS: '1'
+  ANSIBLE_FORCE_COLOR: '1'
+
+stages:
+  - lint
+  - test
+  - build
+  - deploy
+
+.lint:
+  stage: lint
+  cache:
+    key:
+      prefix: sanity
+      files:
+        - requirements-test.txt
+    paths:
+      - .cache/pip/
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-docker-python:${PYTHON_VERSION}
+  before_script:
+    - pip install -r requirements-test.txt
+  script:
+    - ansible-lint
+    - yamllint .
+
+lint-feature:
+  extends: .lint
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ['3.10']
+  except:
+    refs:
+      - main
+
+lint-main:
+  extends: .lint
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ['3.9', '3.10', '3.11', '3.12']
+  only:
+    refs:
+      - main
+
+.molecule:
+  stage: test
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-docker-python:${PYTHON_VERSION}
+  cache:
+    key:
+      files:
+        - requirements-test.txt
+        - tox.ini
+      prefix: $PYTHON_VERSION-$MOLECULE_DISTRO
+    paths:
+      - .cache/pip
+      - .tox/
+  before_script:
+    - pip install -r requirements-test.txt
+  script:
+    - tox
+
+molecule-branch:
+  extends: .molecule
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ['3.10']
+        MOLECULE_DISTRO: ['debian:bookworm-slim']
+  except:
+    refs:
+      - main
+
+molecule-main:
+  extends: .molecule
+  parallel:
+    matrix:
+      # - PYTHON_VERSION: ['3.9', '3.10', '3.11', '3.12']
+      #   MOLECULE_DISTRO: ['debian:bullseye-slim', 'debian:bookworm-slim', 'ubuntu:bionic', 'ubuntu:focal', 'ubuntu:jammy']
+      - PYTHON_VERSION: ['3.10']
+        MOLECULE_DISTRO: ['debian:bookworm-slim']
+  only:
+    refs:
+      - main
+
+build:
+  stage: build
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-docker-python:3.10
+  before_script:
+    - pip install -r requirements-dev.txt
+  script:
+    - ansible-playbook -i 'localhost,' .deploy/main.yml -e "COLLECTION_VERSION=$CI_COMMIT_REF_NAME"
+  artifacts:
+    paths:
+      - "${CI_PROJECT_NAMESPACE}-gitlab-${CI_COMMIT_REF_NAME}.tar.gz"
+  only:
+    - tags
+
+deploy:
+  stage: deploy
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-docker-python:3.10
+  dependencies:
+    - build
+  before_script:
+    - pip install -r requirements-dev.txt
+  script:
+    - ansible-galaxy collection publish --token "$GALAXY_API_TOKEN" "./${CI_PROJECT_NAMESPACE}-gitlab-${CI_COMMIT_REF_NAME}.tar.gz"
+  only:
+    - tags
