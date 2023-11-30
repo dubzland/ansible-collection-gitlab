@@ -2,9 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: Dump hostvars
-      ansible.builtin.debug:
-        var: hostvars[inventory_hostname]
     - name: Test server role
       ansible.builtin.include_role:
         name: dubzland.gitlab.gitlab_server

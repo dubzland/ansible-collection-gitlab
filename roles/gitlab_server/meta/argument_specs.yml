@@ -1,0 +1,24 @@
+---
+argument_specs:
+  main:
+    short_description: |
+      Installs and configures the L(GitLab,https://gitlab.com) DevOps server.
+    description:
+      - Sets up the GitLab apt repository
+      - Installs the gitlab-ee package
+      - Creates and applies the GitLab configuration
+    options:
+      gitlab_server_prerequisistes:
+        type: list
+        elements: str
+        description: List of packages to install as prerequisites for GitLab.
+      gitlab_server_gpg_key_url:
+        type: str
+        description: Download location for the GitLab repository key.
+      gitlab_server_gpg_key_dest:
+        type: str
+        description: |
+          Location on the target filesystem where the gpg key is stored.
+      gitlab_server_repo_url:
+        type: str
+        description: Download location for the GitLab package repository.

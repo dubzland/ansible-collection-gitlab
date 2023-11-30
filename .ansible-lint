@@ -1,5 +1,4 @@
 ---
 exclude_paths:
-  - .deploy/
-  - .tox/
   - .venv/
+  - tests/output/

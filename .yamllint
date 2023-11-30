@@ -1,10 +1,11 @@
 ---
 extends: default
 ignore: |
-  .tox/
-  .venv/
   .gitlab-ci.yml
+  .venv/
   molecule/
 rules:
+  comments:
+    min-spaces-from-content: 1
   line-length:
     allow-non-breakable-words: true
