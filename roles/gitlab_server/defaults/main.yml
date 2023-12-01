@@ -1,6 +1,7 @@
 ---
 gitlab_server_external_url: http://git.example.com
 gitlab_server_default_theme: 2
+# gitlab_server_puma_worker_processes: 2
 
 #
 # Nginx base configuration

@@ -1157,7 +1157,11 @@ gitlab_rails['gitlab_default_theme'] = {{ gitlab_server_default_theme }}
 # puma['enable'] = true
 # puma['ha'] = false
 # puma['worker_timeout'] = 60
+{% if gitlab_server_puma_worker_processes is defined %}
+puma['worker_processes'] = {{ gitlab_server_puma_worker_processes }}
+{% else %}
 # puma['worker_processes'] = 2
+{% endif %}
 # puma['min_threads'] = 4
 # puma['max_threads'] = 4
 
@@ -1850,14 +1854,14 @@ gitlab_pages['enable'] = {{ gitlab_server_pages_enable | lower }}
 
 ##! Configure to expose GitLab Pages on external IP address, serving the HTTP
 {% if gitlab_server_pages_external_http is defined %}
-gitlab_pages['external_http'] = ['{{ gitlab_server_pages_external_http | join "', '" }}']
+gitlab_pages['external_http'] = ['{{ gitlab_server_pages_external_http | join("', '") }}']
 {% else %}
 # gitlab_pages['external_http'] = []
 {% endif %}
 
 ##! Configure to expose GitLab Pages on external IP address, serving the HTTPS
 {% if gitlab_server_pages_external_https is defined %}
-gitlab_pages['external_https'] = ['{{ gitlab_server_pages_external_https | join "', '" }}']
+gitlab_pages['external_https'] = ['{{ gitlab_server_pages_external_https | join("', '") }}']
 {% else %}
 # gitlab_pages['external_https'] = []
 {% endif %}

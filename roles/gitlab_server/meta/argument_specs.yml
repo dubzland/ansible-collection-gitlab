@@ -30,6 +30,13 @@ argument_specs:
         type: int
         default: 2
         description: Default theme for the GitLab web UI.
+      gitlab_server_puma_worker_processes:
+        type: int
+        description: |-
+          Number of Puma workers to run.  Set to 0 to disable Puma clustered
+          mode.  See L(https://docs.gitlab.com/ee/administration/operations/puma.html#disable-puma-clustered-mode-in-memory-constrained-environments)
+          for more information.  Generally speaking, this setting should not be
+          used.  Primarily exists for reducing resource usage during CI runs.
       gitlab_server_nginx_redirect_http_to_https:
         type: bool
         default: true
