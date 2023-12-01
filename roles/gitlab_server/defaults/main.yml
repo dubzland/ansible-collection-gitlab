@@ -2,7 +2,9 @@
 gitlab_server_external_url: http://git.example.com
 gitlab_server_default_theme: 2
 
+#
 # Nginx base configuration
+#
 gitlab_server_nginx_redirect_http_to_https: false
 gitlab_server_nginx_listen_addresses:
   - "*"
@@ -12,3 +14,17 @@ gitlab_server_nginx_listen_https: false
 # gitlab_server_nginx_real_ip_trusted_addresses: []
 # gitlab_server_nginx_real_ip_header: 'X-Forwarded-For'
 # gitlab_server_nginx_real_ip_recursive: True
+
+#
+# Pages configuration
+#
+gitlab_server_pages_enable: false
+# gitlab_server_pages_external_url: http://pages.example.io
+# gitlab_server_pages_external_http: []
+# gitlab_server_pages_external_https: []
+# gitlab_server_pages_redirect_http: true
+# gitlab_server_pages_cert: |-
+#   /etc/gitlab/ssl/#{Gitlab['gitlab_pages']['domain']}.crt"
+# gitlab_server_pages_cert_key: |-
+#   /etc/gitlab/ssl/#{Gitlab['gitlab_pages']['domain']}.key"
+# gitlab_server_pages_access_control: false

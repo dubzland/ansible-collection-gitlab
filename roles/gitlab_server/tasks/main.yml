@@ -48,5 +48,5 @@
     dest: /etc/gitlab/gitlab.rb
     owner: root
     group: root
-    mode: 0600
+    mode: "0600"
   notify: Reconfigure GitLab
