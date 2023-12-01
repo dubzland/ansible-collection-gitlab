@@ -22,3 +22,39 @@ argument_specs:
       gitlab_server_repo_url:
         type: str
         description: Download location for the GitLab package repository.
+      gitlab_server_external_url:
+        type: str
+        default: https://git.example.com
+        description: URL on which GitLab will be reachable.
+      gitlab_server_default_theme:
+        type: int
+        default: 2
+        description: Default theme for the GitLab web UI.
+      gitlab_server_nginx_redirect_http_to_https:
+        type: bool
+        default: true
+        description: Should http requests to the server be redirected to https.
+      gitlab_server_nginx_listen_addresses:
+        type: list
+        elements: str
+        default:
+          - "*"
+          - "[::]"
+        description: Local addresses the GitLab Nginx server should bind to.
+      gitlab_server_nginx_listen_port:
+        type: int
+        description: If present, specifies the port Nginx should listen on.
+      gitlab_server_nginx_listen_https:
+        type: bool
+        description: |
+          Listen on https (443).  Set to V(False) if using a reverse proxy.
+      gitlab_server_nginx_real_ip_trusted_addresses:
+        type: list
+        elements: str
+        description: List of upstream reverse proxies.
+      gitlab_server_nginx_real_ip_header:
+        type: str
+        description: HTTP header containing upstream proxy addresses.
+      gitlab_server_nginx_real_ip_recursive:
+        type: bool
+        description: Enable Nginx Real-Ip recursive search.
