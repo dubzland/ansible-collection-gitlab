@@ -5,3 +5,5 @@
     - name: Test server role
       ansible.builtin.include_role:
         name: dubzland.gitlab.gitlab_server
+      vars:
+        gitlab_server_puma_worker_processes: 0

@@ -1157,7 +1157,11 @@ gitlab_rails['gitlab_default_theme'] = {{ gitlab_server_default_theme }}
 # puma['enable'] = true
 # puma['ha'] = false
 # puma['worker_timeout'] = 60
+{% if gitlab_server_puma_worker_processes is defined %}
+puma['worker_processes'] = {{ gitlab_server_puma_worker_processes }}
+{% else %}
 # puma['worker_processes'] = 2
+{% endif %}
 # puma['min_threads'] = 4
 # puma['max_threads'] = 4
 
@@ -1842,20 +1846,40 @@ nginx['real_ip_recursive'] = '{{ 'on' if gitlab_server_nginx_real_ip_recursive e
 
 ##! Define to enable GitLab Pages
 # pages_external_url "http://pages.example.com/"
+{% if gitlab_server_pages_enable is defined %}
+gitlab_pages['enable'] = {{ gitlab_server_pages_enable | lower }}
+{% else %}
 # gitlab_pages['enable'] = false
+{% endif %}
 
 ##! Configure to expose GitLab Pages on external IP address, serving the HTTP
+{% if gitlab_server_pages_external_http is defined %}
+gitlab_pages['external_http'] = ['{{ gitlab_server_pages_external_http | join("', '") }}']
+{% else %}
 # gitlab_pages['external_http'] = []
+{% endif %}
 
 ##! Configure to expose GitLab Pages on external IP address, serving the HTTPS
+{% if gitlab_server_pages_external_https is defined %}
+gitlab_pages['external_https'] = ['{{ gitlab_server_pages_external_https | join("', '") }}']
+{% else %}
 # gitlab_pages['external_https'] = []
+{% endif %}
 
 ##! Configure to expose GitLab Pages on external IP address, serving the HTTPS over PROXYv2
 # gitlab_pages['external_https_proxyv2'] = []
 
 ##! Configure cert when using external IP address
+{% if gitlab_server_pages_cert is defined %}
+gitlab_pages['cert'] = "{{ gitlab_server_pages_cert }}"
+{% else %}
 # gitlab_pages['cert'] = "/etc/gitlab/ssl/#{Gitlab['gitlab_pages']['domain']}.crt"
+{% endif %}
+{% if gitlab_server_pages_cert_key is defined %}
+gitlab_pages['cert_key'] = "{{ gitlab_server_pages_cert_key }}"
+{% else %}
 # gitlab_pages['cert_key'] = "/etc/gitlab/ssl/#{Gitlab['gitlab_pages']['domain']}.key"
+{% endif %}
 
 ##! Configure to use the default list of cipher suites
 # gitlab_pages['insecure_ciphers'] = false
@@ -1890,7 +1914,11 @@ nginx['real_ip_recursive'] = '{{ 'on' if gitlab_server_nginx_real_ip_recursive e
 ##! Listen for requests forwarded by reverse proxy
 # gitlab_pages['listen_proxy'] = "localhost:8090"
 
+{% if gitlab_server_pages_redirect_http is defined %}
+gitlab_pages['redirect_http'] = {{ gitlab_server_pages_redirect_http | lower }}
+{% else %}
 # gitlab_pages['redirect_http'] = true
+{% endif %}
 # gitlab_pages['use_http2'] = true
 # gitlab_pages['dir'] = "/var/opt/gitlab/gitlab-pages"
 # gitlab_pages['log_directory'] = "/var/log/gitlab/gitlab-pages"
@@ -1910,7 +1938,11 @@ nginx['real_ip_recursive'] = '{{ 'on' if gitlab_server_nginx_real_ip_recursive e
 # gitlab_pages['tls_max_version'] = "tls1.3"
 
 ##! Pages access control
+{% if gitlab_server_pages_access_control is defined %}
+gitlab_pages['access_control'] = {{ gitlab_server_pages_access_control | lower }}
+{% else %}
 # gitlab_pages['access_control'] = false
+{% endif %}
 # gitlab_pages['gitlab_id'] = nil # Automatically generated if not present
 # gitlab_pages['gitlab_secret'] = nil # Generated if not present
 # gitlab_pages['auth_redirect_uri'] = nil # Defaults to projects subdomain of pages_external_url and + '/auth'
@@ -2028,7 +2060,11 @@ nginx['real_ip_recursive'] = '{{ 'on' if gitlab_server_nginx_real_ip_recursive e
 # `pages_nginx['some_setting']` and should be set separately.
 
 # Below you can find settings that are exclusive to "GitLab Pages NGINX"
+{% if gitlab_server_pages_nginx_enable is defined %}
+pages_nginx['enable'] = {{ gitlab_server_pages_nginx_enable | lower }}
+{% else %}
 # pages_nginx['enable'] = true
+{% endif %}
 
 # gitlab_rails['pages_path'] = "/var/opt/gitlab/gitlab-rails/shared/pages"
 

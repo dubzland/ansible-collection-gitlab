@@ -30,6 +30,13 @@ argument_specs:
         type: int
         default: 2
         description: Default theme for the GitLab web UI.
+      gitlab_server_puma_worker_processes:
+        type: int
+        description: |-
+          Number of Puma workers to run.  Set to 0 to disable Puma clustered
+          mode.  See L(https://docs.gitlab.com/ee/administration/operations/puma.html#disable-puma-clustered-mode-in-memory-constrained-environments)
+          for more information.  Generally speaking, this setting should not be
+          used.  Primarily exists for reducing resource usage during CI runs.
       gitlab_server_nginx_redirect_http_to_https:
         type: bool
         default: true
@@ -58,3 +65,48 @@ argument_specs:
       gitlab_server_nginx_real_ip_recursive:
         type: bool
         description: Enable Nginx Real-Ip recursive search.
+      gitlab_server_pages_enable:
+        type: bool
+        default: false
+        description: Enable GitLab Pages functionality.
+      gitlab_server_pages_external_url:
+        type: str
+        description: Base URL under which GitLab will server Pages projects.
+      gitlab_server_pages_external_http:
+        type: list
+        elements: str
+        description: |-
+          List of IP addresses the Pages daemon will bind to (for http).
+          Necessary if you want to use custom domains. See
+          L(https://docs.gitlab.com/ee/administration/pages/index.html#advanced-configuration)
+          for more information.
+      gitlab_server_pages_external_https:
+        type: list
+        elements: str
+        description: |-
+          List of IP addresses the Pages daemon will bind to (for https).
+          Necessary if you want to use custom domains. See
+          L(https://docs.gitlab.com/ee/administration/pages/index.html#advanced-configuration)
+          for more information.
+      gitlab_server_pages_nginx_enable:
+        type: bool
+        description: |-
+          Controls the GitLab Pages Nginx instance.  If you are planning on
+          utilizing custom domains, this should be disabled.  See
+          L(https://docs.gitlab.com/ee/administration/pages/index.html#advanced-configuration)
+          for more information.
+      gitlab_server_pages_redirect_http:
+        type: bool
+        description: Redirect Pages traffic from HTTP to HTTPS
+      gitlab_server_pages_cert:
+        type: path
+        description: Certificate file used by the GitLab Pages server.
+      gitlab_server_pages_cert_key:
+        type: path
+        description: Certificate key file used by the GitLab Pages server.
+      gitlab_server_pages_access_control:
+        type: bool
+        description: |-
+          Enables
+          L(Access control,https://docs.gitlab.com/ee/administration/pages/#access-control)
+          for the Pages daemon.
