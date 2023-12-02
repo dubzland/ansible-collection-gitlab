@@ -65,6 +65,71 @@ argument_specs:
       gitlab_server_nginx_real_ip_recursive:
         type: bool
         description: Enable Nginx Real-Ip recursive search.
+      gitlab_server_smtp_enable:
+        type: bool
+        description: >-
+          Enables sending email via an external server, as opposed to using
+          Sendmail or Postfix directly.
+      gitlab_server_smtp_address:
+        type: str
+        description: >-
+          Address of the SMTP server used for sending emails.
+      gitlab_server_smtp_port:
+        type: int
+        description: Port the O(gitlab_server_smtp_address) is listening on.
+      gitlab_server_smtp_user_name:
+        type: str
+        description: Username used to authenticate to the SMTP server.
+      gitlab_server_smtp_password:
+        type: str
+        description: Password that corresponds to O(gitlab_server_smtp_user_name).
+      gitlab_server_smtp_domain:
+        type: str
+        description: Domain to authenticate to.
+      gitlab_server_smtp_authentication:
+        type: str
+        choices:
+          - login
+          - plain
+        description: Authentication method to use with the SMTP server.
+      gitlab_server_smtp_enable_starttls_auto:
+        type: bool
+        description: Use STARTTLS on the SMTP server if present.
+      gitlab_server_smtp_tls:
+        type: bool
+        description: Enables TLS authentication with the SMTP server.
+      gitlab_server_smtp_pool:
+        type: bool
+        description: Enables SMTP connection pooling.
+      gitlab_server_smtp_openssl_verify_mode:
+        type: str
+        choices:
+          - none
+          - peer
+          - client_once
+          - fail_if_no_peer_cert
+        description: >-
+          Sets how OpenSSL checks the certificate.  See
+          L(ActionMailer,https://api.rubyonrails.org/classes/ActionMailer/Base.html)
+          for more information.
+      gitlab_server_smtp_ca_path:
+        type: path
+        description: Path to the CA to use for validating peer cerficates.
+      gitlab_server_smtp_ca_file:
+        type: path
+        description: Actual CA certificate.
+      gitlab_server_email_enabled:
+        type: bool
+        description: Enables email originating from the GitLab server.
+      gitlab_server_email_from:
+        type: str
+        description: Email address listed as the sender on outbound emails.
+      gitlab_server_email_display_name:
+        type: str
+        description: Name displayed as the sender on outbound emails.
+      gitlab_server_email_reply_to:
+        type: str
+        description: Reply-to address for outbound emails.
       gitlab_server_pages_enable:
         type: bool
         default: false
