@@ -100,11 +100,10 @@ sanity-release:
 
 molecule-merge:
   extends: .molecule
-  parallel:
-    matrix:
-      PYTHON_VERSION: "3.12"
-      ANSIBLE_VERSION: "stable-2.16"
-      MOLECULE_DISTRO: bookworm
+  variables:
+    PYTHON_VERSION: "3.12"
+    ANSIBLE_VERSION: "stable-2.16"
+    MOLECULE_DISTRO: bookworm
   only:
     refs:
       - merge_requests
