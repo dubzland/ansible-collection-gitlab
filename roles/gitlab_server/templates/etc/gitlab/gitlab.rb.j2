@@ -737,8 +737,16 @@ gitlab_rails['object_store']['objects']['pages']['bucket'] = "{{ gitlab_server_o
 ### Backup Settings
 ###! Docs: https://docs.gitlab.com/omnibus/settings/backups.html
 
+{% if gitlab_server_manage_backup_path is defined %}
+gitlab_rails['manage_backup_path'] = {{ gitlab_server_manage_backup_path | lower }}
+{% else %}
 # gitlab_rails['manage_backup_path'] = true
+{% endif %}
+{% if gitlab_server_backup_path is defined %}
+gitlab_rails['backup_path'] = "{{ gitlab_server_backup_path }}"
+{% else %}
 # gitlab_rails['backup_path'] = "/var/opt/gitlab/backups"
+{% endif %}
 # gitlab_rails['backup_gitaly_backup_path'] = "/opt/gitlab/embedded/bin/gitaly-backup"
 
 ###! Docs: https://docs.gitlab.com/ee/administration/backup_restore/backup_gitlab.html#backup-archive-permissions
@@ -747,7 +755,11 @@ gitlab_rails['object_store']['objects']['pages']['bucket'] = "{{ gitlab_server_o
 # gitlab_rails['backup_pg_schema'] = 'public'
 
 ###! The duration in seconds to keep backups before they are allowed to be deleted
+{% if gitlab_server_backup_keep_time is defined %}
+gitlab_rails['backup_keep_time'] = {{ gitlab_server_backup_keep_time }}
+{% else %}
 # gitlab_rails['backup_keep_time'] = 604800
+{% endif %}
 
 # gitlab_rails['backup_upload_connection'] = {
 #   'provider' => 'AWS',
