@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Basic configuration (#2)
 - Pages configuration (#3)
 - SMTP configuration (#4)
+- Object Storage configuration (#5)
 
 ## [0.0.1] = 2023-12-01
 

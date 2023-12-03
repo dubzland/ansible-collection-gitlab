@@ -175,3 +175,80 @@ argument_specs:
           Enables
           L(Access control,https://docs.gitlab.com/ee/administration/pages/#access-control)
           for the Pages daemon.
+      gitlab_server_object_store_enabled:
+        type: bool
+        description: Enables the consoldated configuration for Object Storage.
+      gitlab_server_object_store_connection:
+        type: dict
+        options:
+          provider:
+            type: str
+            choices:
+              - AWS
+              - Google
+              - AzureRM
+          region:
+            type: str
+            description: AWS Region (us-east-1 for Minio)
+          endpoint:
+            type: str
+            description: >-
+              Can be used to configure an S3 compatible service (like Minio).
+          aws_access_key_id:
+            type: str
+            description: AWS credentials.
+          aws_secret_access_key:
+            type: str
+            description: AWS credentials.
+          path_style:
+            type: bool
+            description: Set to V(true) if using Minio, otherwise V(false).
+        required_if:
+          - [
+              "provider",
+              "AWS",
+              [
+                "region",
+                "endpoint",
+                "aws_access_key_id",
+                "aws_secret_access_key",
+              ],
+              False,
+            ]
+        description: >-
+          Connection configuration for the object store.  See
+          L(https://docs.gitlab.com/ee/administration/object_storage.html)
+          for details.
+      gitlab_server_object_store_proxy_download:
+        type: bool
+        description: Proxy all object requests through the GitLab server.
+      gitlab_server_object_store_bucket_artifacts:
+        type: str
+        description: Name of the bucket used for artifact storage.
+      gitlab_server_object_store_bucket_external_diffs:
+        type: str
+        description: Name of the bucket used for merge request diffs.
+      gitlab_server_object_store_bucket_lfs:
+        type: str
+        description: Name of the bucket used for Large File Storage.
+      gitlab_server_object_store_bucket_uploads:
+        type: str
+        description: Name of the bucket used for uploads.
+      gitlab_server_object_store_bucket_packages:
+        type: str
+        description: Name of the bucket used for project packages.
+      gitlab_server_object_store_bucket_dependency_proxy:
+        type: str
+        description: Name of the bucket used for dependency proxy caching.
+      gitlab_server_object_store_bucket_terraform_state:
+        type: str
+        description: Name of the bucket used for storing Terraform state.
+      gitlab_server_object_store_bucket_ci_secure_files:
+        type: str
+        description: >-
+          Name of the bucket used for storing secured files used during CI
+          runs.  See L(https://docs.gitlab.com/ee/administration/secure_files.html)
+          for details.
+      gitlab_server_object_store_bucket_pages:
+        type: str
+        description: Name of the bucket used for storing Gitlab Pages.
