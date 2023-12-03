@@ -24,7 +24,32 @@
         gitlab_server_smtp_openssl_verify_mode: peer
         gitlab_server_smtp_ca_path: /etc/ssl/certs
         gitlab_server_smtp_ca_file: /etc/ssl/certs/ca-certificates.crt
-        gitlab_server_smtp_email_enabled: true
-        gitlab_server_smtp_email_from: "gitlab@example.com"
-        gitlab_server_smtp_email_display_name: "GitLab"
-        gitlab_server_smtp_email_reply_to: "noreply@example.com"
+        gitlab_server_email_enabled: true
+        gitlab_server_email_from: "gitlab@example.com"
+        gitlab_server_email_display_name: "GitLab"
+        gitlab_server_email_reply_to: "noreply@example.com"
+        gitlab_server_pages_enable: true
+        gitlab_server_pages_external_url: "https://pages.example.io"
+        gitlab_server_pages_external_http:
+          - "127.0.0.1:80"
+        gitlab_server_pages_redirect_http: false
+        gitlab_server_pages_access_control: false
+        gitlab_server_pages_nginx_enable: false
+        gitlab_server_object_store_enabled: true
+        gitlab_server_object_store_connection:
+          provider: AWS
+          region: "us-east-1"
+          endpoint: "http://minio.example.com:9000"
+          aws_access_key_id: gitlab
+          aws_secret_access_key: gitlabsekret
+          path_style: true
+        gitlab_server_object_store_proxy_download: true
+        gitlab_server_object_store_bucket_artifacts: "gitlab-artifacts"
+        gitlab_server_object_store_bucket_external_diffs: "gitlab-external-diffs"
+        gitlab_server_object_store_bucket_lfs: "gitlab-lfs"
+        gitlab_server_object_store_bucket_uploads: "gitlab-uploads"
+        gitlab_server_object_store_bucket_packages: "gitlab-packages"
+        gitlab_server_object_store_bucket_dependency_proxy: "gitlab-depdency-proxy"
+        gitlab_server_object_store_bucket_terraform_state: "gitlab-terraform-state"
+        gitlab_server_object_store_bucket_ci_secure_files: "gitlab-ci-secure-files"
+        gitlab_server_object_store_bucket_pages: "gitlab-pages"

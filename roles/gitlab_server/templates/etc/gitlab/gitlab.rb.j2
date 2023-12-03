@@ -402,19 +402,86 @@ gitlab_rails['gitlab_default_theme'] = {{ gitlab_server_default_theme }}
 ###!
 ###! Be sure to use different buckets for each type of object.
 ###! Docs: https://docs.gitlab.com/ee/administration/object_storage.html
+{% if gitlab_server_object_store_enabled is defined %}
+gitlab_rails['object_store']['enabled'] = {{ gitlab_server_object_store_enabled | lower }}
+{% else %}
 # gitlab_rails['object_store']['enabled'] = false
+{% endif %}
+{% if gitlab_server_object_store_connection is defined %}
+gitlab_rails['object_store']['connection'] = {
+{%   if "provider" in gitlab_server_object_store_connection %}
+	'provider' => "{{ gitlab_server_object_store_connection['provider'] }}",
+{%   endif %}
+{%   if "region" in gitlab_server_object_store_connection %}
+	'region' => "{{ gitlab_server_object_store_connection['region'] }}",
+{%   endif %}
+{%   if "endpoint" in gitlab_server_object_store_connection %}
+	'endpoint' => "{{ gitlab_server_object_store_connection['endpoint'] }}",
+{%   endif %}
+{%   if "aws_access_key_id" in gitlab_server_object_store_connection %}
+	'aws_access_key_id' => "{{ gitlab_server_object_store_connection['aws_access_key_id'] }}",
+{%   endif %}
+{%   if "aws_secret_access_key" in gitlab_server_object_store_connection %}
+	'aws_secret_access_key' => "{{ gitlab_server_object_store_connection['aws_secret_access_key'] }}",
+{%   endif %}
+{%   if "path_style" in gitlab_server_object_store_connection %}
+	'path_style' => "{{ gitlab_server_object_store_connection['path_style'] | lower }}",
+{%   endif %}
+}
+{% else %}
 # gitlab_rails['object_store']['connection'] = {}
+{% endif %}
 # gitlab_rails['object_store']['storage_options'] = {}
+{% if gitlab_server_object_store_proxy_download is defined %}
+gitlab_rails['object_store']['proxy_download'] = false
+{% else %}
 # gitlab_rails['object_store']['proxy_download'] = false
+{% endif %}
+{% if gitlab_server_object_store_bucket_artifacts is defined %}
+gitlab_rails['object_store']['objects']['artifacts']['bucket'] = "{{ gitlab_server_object_store_bucket_artifacts }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['artifacts']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_external_diffs is defined %}
+gitlab_rails['object_store']['objects']['external_diffs']['bucket'] = "{{ gitlab_server_object_store_bucket_external_diffs }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['external_diffs']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_lfs is defined %}
+gitlab_rails['object_store']['objects']['lfs']['bucket'] = "{{ gitlab_server_object_store_bucket_lfs }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['lfs']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_uploads is defined %}
+gitlab_rails['object_store']['objects']['uploads']['bucket'] = "{{ gitlab_server_object_store_bucket_uploads }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['uploads']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_packages is defined %}
+gitlab_rails['object_store']['objects']['packages']['bucket'] = "{{ gitlab_server_object_store_bucket_packages }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['packages']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_dependency_proxy is defined %}
+gitlab_rails['object_store']['objects']['dependency_proxy']['bucket'] = "{{ gitlab_server_object_store_bucket_dependency_proxy }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['dependency_proxy']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_terraform_state is defined %}
+gitlab_rails['object_store']['objects']['terraform_state']['bucket'] = "{{ gitlab_server_object_store_bucket_terraform_state }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['terraform_state']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_ci_secure_files is defined %}
+gitlab_rails['object_store']['objects']['ci_secure_files']['bucket'] = "{{ gitlab_server_object_store_bucket_ci_secure_files }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['ci_secure_files']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_pages is defined %}
+gitlab_rails['object_store']['objects']['pages']['bucket'] = "{{ gitlab_server_object_store_bucket_pages }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['pages']['bucket'] = nil
+{% endif %}
 
 ### Job Artifacts
 # gitlab_rails['artifacts_enabled'] = true
@@ -1715,7 +1782,6 @@ nginx['redirect_http_to_https'] = {{ gitlab_server_nginx_redirect_http_to_https 
 
 # nginx['ssl_dhparam'] = nil # Path to dhparams.pem, eg. /etc/gitlab/ssl/dhparams.pem
 # nginx['ssl_password_file'] = nil # Path to file with passphrases for ssl certificate secret keys
-nginx['listen_addresses'] = ['*', '[::]']
 nginx['listen_addresses'] = ['{{ gitlab_server_nginx_listen_addresses | join("', '") }}']
 
 ##! **Defaults to forcing web browsers to always communicate using only HTTPS**
@@ -1913,7 +1979,11 @@ nginx['real_ip_recursive'] = '{{ 'on' if gitlab_server_nginx_real_ip_recursive e
 ################################################################################
 
 ##! Define to enable GitLab Pages
+{% if gitlab_server_pages_external_url is defined %}
+pages_external_url "{{ gitlab_server_pages_external_url }}"
+{% else %}
 # pages_external_url "http://pages.example.com/"
+{% endif %}
 {% if gitlab_server_pages_enable is defined %}
 gitlab_pages['enable'] = {{ gitlab_server_pages_enable | lower }}
 {% else %}

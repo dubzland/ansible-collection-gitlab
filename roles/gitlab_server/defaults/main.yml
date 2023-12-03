@@ -50,3 +50,20 @@ gitlab_server_pages_enable: false
 # gitlab_server_pages_cert_key: |-
 #   /etc/gitlab/ssl/#{Gitlab['gitlab_pages']['domain']}.key"
 # gitlab_server_pages_access_control: false
+# gitlab_server_pages_nginx_enable: true
+
+#
+# Object Storage
+#
+# gitlab_server_object_store_enabled: false
+# gitlab_server_object_store_connection: {}
+# gitlab_server_object_store_proxy_download: false
+# gitlab_server_object_store_bucket_artifacts: ""
+# gitlab_server_object_store_bucket_external_diffs: ""
+# gitlab_server_object_store_bucket_lfs: ""
+# gitlab_server_object_store_bucket_uploads: ""
+# gitlab_server_object_store_bucket_packages: ""
+# gitlab_server_object_store_bucket_dependency_proxy: ""
+# gitlab_server_object_store_bucket_terraform_state: ""
+# gitlab_server_object_store_bucket_ci_secure_files: ""
+# gitlab_server_object_store_bucket_pages: ""
