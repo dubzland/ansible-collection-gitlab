@@ -37,7 +37,7 @@ stages:
     reports:
       junit: tests/output/**/*.xml
 
-sanity-merge:
+sanity:
   extends: .sanity
   variables:
     PYTHON_VERSION: "3.12"
@@ -45,6 +45,7 @@ sanity-merge:
   only:
     refs:
       - merge_requests
+      - main
 
 sanity-release:
   extends: .sanity
@@ -98,7 +99,7 @@ sanity-release:
   script:
     - molecule test
 
-molecule-merge:
+molecule:
   extends: .molecule
   variables:
     PYTHON_VERSION: "3.12"
@@ -107,6 +108,7 @@ molecule-merge:
   only:
     refs:
       - merge_requests
+      - main
 
 molecule-release:
   extends: .molecule
