@@ -82,33 +82,101 @@ external_url '{{ gitlab_server_external_url }}'
 ###! Docs: https://docs.gitlab.com/omnibus/settings/smtp.html
 ###! **Use smtp instead of sendmail/postfix.**
 
+{% if gitlab_server_smtp_enable is defined %}
+gitlab_rails['smtp_enable'] = {{ gitlab_server_smtp_enable | lower }}
+{% else %}
 # gitlab_rails['smtp_enable'] = true
+{% endif %}
+{% if gitlab_server_smtp_address is defined %}
+gitlab_rails['smtp_address'] = "{{ gitlab_server_smtp_address }}"
+{% else %}
 # gitlab_rails['smtp_address'] = "smtp.server"
+{% endif %}
+{% if gitlab_server_smtp_port is defined %}
+gitlab_rails['smtp_port'] = {{ gitlab_server_smtp_port }}
+{% else %}
 # gitlab_rails['smtp_port'] = 465
+{% endif %}
+{% if gitlab_server_smtp_user_name is defined %}
+gitlab_rails['smtp_user_name'] = "{{ gitlab_server_smtp_user_name }}"
+{% else %}
 # gitlab_rails['smtp_user_name'] = "smtp user"
+{% endif %}
+{% if gitlab_server_smtp_password is defined %}
+gitlab_rails['smtp_password'] = "{{ gitlab_server_smtp_password }}"
+{% else %}
 # gitlab_rails['smtp_password'] = "smtp password"
+{% endif %}
+{% if gitlab_server_smtp_domain is defined %}
+gitlab_rails['smtp_domain'] = "{{ gitlab_server_smtp_domain }}"
+{% else %}
 # gitlab_rails['smtp_domain'] = "example.com"
+{% endif %}
+{% if gitlab_server_smtp_authentication is defined %}
+gitlab_rails['smtp_authentication'] = "{{ gitlab_server_smtp_authentication }}"
+{% else %}
 # gitlab_rails['smtp_authentication'] = "login"
+{% endif %}
+{% if gitlab_server_smtp_enable_starttls_auto is defined %}
+gitlab_rails['smtp_enable_starttls_auto'] = {{ gitlab_server_smtp_enable_starttls_auto | lower }}
+{% else %}
 # gitlab_rails['smtp_enable_starttls_auto'] = true
+{% endif %}
+{% if gitlab_server_smtp_tls is defined %}
+gitlab_rails['smtp_tls'] = {{ gitlab_server_smtp_tls | lower }}
+{% else %}
 # gitlab_rails['smtp_tls'] = false
+{% endif %}
+{% if gitlab_server_smtp_pool is defined %}
+gitlab_rails['smtp_pool'] = {{ gitlab_server_smtp_pool | lower }}
+{% else %}
 # gitlab_rails['smtp_pool'] = false
+{% endif %}
 
 ###! **Can be: 'none', 'peer', 'client_once', 'fail_if_no_peer_cert'**
 ###! Docs: http://api.rubyonrails.org/classes/ActionMailer/Base.html
+{% if gitlab_server_smtp_openssl_verify_mode is defined %}
+gitlab_rails['smtp_openssl_verify_mode'] = '{{ gitlab_server_smtp_openssl_verify_mode }}'
+{% else %}
 # gitlab_rails['smtp_openssl_verify_mode'] = 'none'
+{% endif %}
 
+{% if gitlab_server_smtp_ca_path is defined %}
+gitlab_rails['smtp_ca_path'] = "{{ gitlab_server_smtp_ca_path }}"
+{% else %}
 # gitlab_rails['smtp_ca_path'] = "/etc/ssl/certs"
+{% endif %}
+{% if gitlab_server_smtp_ca_file is defined %}
+gitlab_rails['smtp_ca_file'] = "{{ gitlab_server_smtp_ca_file }}"
+{% else %}
 # gitlab_rails['smtp_ca_file'] = "/etc/ssl/certs/ca-certificates.crt"
+{% endif %}
 
 ### Email Settings
 
+{% if gitlab_server_email_enabled is defined %}
+gitlab_rails['gitlab_email_enabled'] = {{ gitlab_server_email_enabled | lower }}
+{% else %}
 # gitlab_rails['gitlab_email_enabled'] = true
+{% endif %}
 
 ##! If your SMTP server does not like the default 'From: gitlab@gitlab.example.com'
 ##! can change the 'From' with this setting.
+{% if gitlab_server_email_from is defined %}
+gitlab_rails['gitlab_email_from'] = '{{ gitlab_server_email_from }}'
+{% else %}
 # gitlab_rails['gitlab_email_from'] = 'example@example.com'
+{% endif %}
+{% if gitlab_server_email_display_name is defined %}
+gitlab_rails['gitlab_email_display_name'] = '{{ gitlab_server_email_display_name }}'
+{% else %}
 # gitlab_rails['gitlab_email_display_name'] = 'Example'
+{% endif %}
+{% if gitlab_server_email_reply_to is defined %}
+gitlab_rails['gitlab_email_reply_to'] = '{{ gitlab_server_email_reply_to }}'
+{% else %}
 # gitlab_rails['gitlab_email_reply_to'] = 'noreply@example.com'
+{% endif %}
 # gitlab_rails['gitlab_email_subject_suffix'] = ''
 # gitlab_rails['gitlab_email_smime_enabled'] = false
 # gitlab_rails['gitlab_email_smime_key_file'] = '/etc/gitlab/ssl/gitlab_smime.key'
@@ -334,19 +402,86 @@ gitlab_rails['gitlab_default_theme'] = {{ gitlab_server_default_theme }}
 ###!
 ###! Be sure to use different buckets for each type of object.
 ###! Docs: https://docs.gitlab.com/ee/administration/object_storage.html
+{% if gitlab_server_object_store_enabled is defined %}
+gitlab_rails['object_store']['enabled'] = {{ gitlab_server_object_store_enabled | lower }}
+{% else %}
 # gitlab_rails['object_store']['enabled'] = false
+{% endif %}
+{% if gitlab_server_object_store_connection is defined %}
+gitlab_rails['object_store']['connection'] = {
+{%   if "provider" in gitlab_server_object_store_connection %}
+	'provider' => "{{ gitlab_server_object_store_connection['provider'] }}",
+{%   endif %}
+{%   if "region" in gitlab_server_object_store_connection %}
+	'region' => "{{ gitlab_server_object_store_connection['region'] }}",
+{%   endif %}
+{%   if "endpoint" in gitlab_server_object_store_connection %}
+	'endpoint' => "{{ gitlab_server_object_store_connection['endpoint'] }}",
+{%   endif %}
+{%   if "aws_access_key_id" in gitlab_server_object_store_connection %}
+	'aws_access_key_id' => "{{ gitlab_server_object_store_connection['aws_access_key_id'] }}",
+{%   endif %}
+{%   if "aws_secret_access_key" in gitlab_server_object_store_connection %}
+	'aws_secret_access_key' => "{{ gitlab_server_object_store_connection['aws_secret_access_key'] }}",
+{%   endif %}
+{%   if "path_style" in gitlab_server_object_store_connection %}
+	'path_style' => "{{ gitlab_server_object_store_connection['path_style'] | lower }}",
+{%   endif %}
+}
+{% else %}
 # gitlab_rails['object_store']['connection'] = {}
+{% endif %}
 # gitlab_rails['object_store']['storage_options'] = {}
+{% if gitlab_server_object_store_proxy_download is defined %}
+gitlab_rails['object_store']['proxy_download'] = false
+{% else %}
 # gitlab_rails['object_store']['proxy_download'] = false
+{% endif %}
+{% if gitlab_server_object_store_bucket_artifacts is defined %}
+gitlab_rails['object_store']['objects']['artifacts']['bucket'] = "{{ gitlab_server_object_store_bucket_artifacts }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['artifacts']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_external_diffs is defined %}
+gitlab_rails['object_store']['objects']['external_diffs']['bucket'] = "{{ gitlab_server_object_store_bucket_external_diffs }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['external_diffs']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_lfs is defined %}
+gitlab_rails['object_store']['objects']['lfs']['bucket'] = "{{ gitlab_server_object_store_bucket_lfs }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['lfs']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_uploads is defined %}
+gitlab_rails['object_store']['objects']['uploads']['bucket'] = "{{ gitlab_server_object_store_bucket_uploads }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['uploads']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_packages is defined %}
+gitlab_rails['object_store']['objects']['packages']['bucket'] = "{{ gitlab_server_object_store_bucket_packages }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['packages']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_dependency_proxy is defined %}
+gitlab_rails['object_store']['objects']['dependency_proxy']['bucket'] = "{{ gitlab_server_object_store_bucket_dependency_proxy }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['dependency_proxy']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_terraform_state is defined %}
+gitlab_rails['object_store']['objects']['terraform_state']['bucket'] = "{{ gitlab_server_object_store_bucket_terraform_state }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['terraform_state']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_ci_secure_files is defined %}
+gitlab_rails['object_store']['objects']['ci_secure_files']['bucket'] = "{{ gitlab_server_object_store_bucket_ci_secure_files }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['ci_secure_files']['bucket'] = nil
+{% endif %}
+{% if gitlab_server_object_store_bucket_pages is defined %}
+gitlab_rails['object_store']['objects']['pages']['bucket'] = "{{ gitlab_server_object_store_bucket_pages }}"
+{% else %}
 # gitlab_rails['object_store']['objects']['pages']['bucket'] = nil
+{% endif %}
 
 ### Job Artifacts
 # gitlab_rails['artifacts_enabled'] = true
@@ -602,8 +737,16 @@ gitlab_rails['gitlab_default_theme'] = {{ gitlab_server_default_theme }}
 ### Backup Settings
 ###! Docs: https://docs.gitlab.com/omnibus/settings/backups.html
 
+{% if gitlab_server_manage_backup_path is defined %}
+gitlab_rails['manage_backup_path'] = {{ gitlab_server_manage_backup_path | lower }}
+{% else %}
 # gitlab_rails['manage_backup_path'] = true
+{% endif %}
+{% if gitlab_server_backup_path is defined %}
+gitlab_rails['backup_path'] = "{{ gitlab_server_backup_path }}"
+{% else %}
 # gitlab_rails['backup_path'] = "/var/opt/gitlab/backups"
+{% endif %}
 # gitlab_rails['backup_gitaly_backup_path'] = "/opt/gitlab/embedded/bin/gitaly-backup"
 
 ###! Docs: https://docs.gitlab.com/ee/administration/backup_restore/backup_gitlab.html#backup-archive-permissions
@@ -612,7 +755,11 @@ gitlab_rails['gitlab_default_theme'] = {{ gitlab_server_default_theme }}
 # gitlab_rails['backup_pg_schema'] = 'public'
 
 ###! The duration in seconds to keep backups before they are allowed to be deleted
+{% if gitlab_server_backup_keep_time is defined %}
+gitlab_rails['backup_keep_time'] = {{ gitlab_server_backup_keep_time }}
+{% else %}
 # gitlab_rails['backup_keep_time'] = 604800
+{% endif %}
 
 # gitlab_rails['backup_upload_connection'] = {
 #   'provider' => 'AWS',
@@ -925,13 +1072,33 @@ gitlab_rails['gitlab_default_theme'] = {{ gitlab_server_default_theme }}
 ##! Docs: https://docs.gitlab.com/ee/administration/packages/container_registry.html
 ################################################################################
 
+{% if gitlab_server_registry_external_url is defined %}
+registry_external_url '{{ gitlab_server_registry_external_url }}'
+{% else %}
 # registry_external_url 'https://registry.example.com'
+{% endif %}
 
 ### Settings used by GitLab application
+{% if gitlab_server_registry_enabled is defined %}
+gitlab_rails['registry_enabled'] = {{ gitlab_server_registry_enabled | lower }}
+{% else %}
 # gitlab_rails['registry_enabled'] = true
+{% endif %}
+{% if gitlab_server_registry_host is defined %}
+gitlab_rails['registry_host'] = "{{ gitlab_server_registry_host }}"
+{% else %}
 # gitlab_rails['registry_host'] = "registry.gitlab.example.com"
+{% endif %}
+{% if gitlab_server_registry_port is defined %}
+gitlab_rails['registry_port'] = "{{ gitlab_server_registry_port }}"
+{% else %}
 # gitlab_rails['registry_port'] = "5005"
+{% endif %}
+{% if gitlab_server_registry_path is defined %}
+gitlab_rails['registry_path'] = "{{ gitlab_server_registry_path }}"
+{% else %}
 # gitlab_rails['registry_path'] = "/var/opt/gitlab/gitlab-rails/shared/registry"
+{% endif %}
 
 # Notification secret, it's used to authenticate notification requests to GitLab application
 # You only need to change this when you use external Registry service, otherwise
@@ -971,6 +1138,35 @@ gitlab_rails['gitlab_default_theme'] = {{ gitlab_server_default_theme }}
 
 ### Registry backend storage
 ###! Docs: https://docs.gitlab.com/ee/administration/packages/container_registry.html#configure-storage-for-the-container-registry
+{% if gitlab_server_registry_storage is defined %}
+registry['storage'] = {
+  '{{ gitlab_server_registry_storage["provider"] }}' => {
+{%   if gitlab_server_registry_storage["provider"] == "s3" %}
+    'accessKey' => '{{ gitlab_server_registry_storage["accessKey"] }}',
+    'secretKey' => '{{ gitlab_server_registry_storage["secretKey"] }}',
+    'bucket' => '{{ gitlab_server_registry_storage["bucket"] }}',
+    'region' => '{{ gitlab_server_registry_storage["region"] }}',
+{%     if "regionendpoint" in gitlab_server_registry_storage %}
+    'regionendpoint' => '{{ gitlab_server_registry_storage["regionendpoint"] }}',
+{%     endif %}
+{%     if "secure" in gitlab_server_registry_storage %}
+    'secure' => {{ gitlab_server_registry_storage["secure"] | lower }},
+{%     endif %}
+{%     if "pathstyle" in gitlab_server_registry_storage %}
+    'pathstyle' => {{ gitlab_server_registry_storage["pathstyle"] | lower }},
+{%     endif %}
+{%     if "encrypt" in gitlab_server_registry_storage %}
+    'encrypt' => {{ gitlab_server_registry_storage["encrypt"] | lower }},
+{%     endif %}
+{%   endif %}
+  },
+{%   if "disable_redirect" in gitlab_server_registry_storage %}
+  'redirect' => {
+    'disable' => {{ gitlab_server_registry_storage["disable_redirect"] | lower }}
+  }
+{%   endif %}
+}
+{% else %}
 # registry['storage'] = {
 #   's3' => {
 #     'accesskey' => 's3-access-key',
@@ -983,6 +1179,7 @@ gitlab_rails['gitlab_default_theme'] = {{ gitlab_server_default_theme }}
 #     'disable' => false
 #   }
 # }
+{% endif %}
 
 ### Registry database
 ###! Docs: https://docs.gitlab.com/ee/administration/packages/container_registry.html?tab=Linux+package+%28Omnibus%29#configure-a-metadata-database-for-the-container-registry
@@ -1647,7 +1844,6 @@ nginx['redirect_http_to_https'] = {{ gitlab_server_nginx_redirect_http_to_https 
 
 # nginx['ssl_dhparam'] = nil # Path to dhparams.pem, eg. /etc/gitlab/ssl/dhparams.pem
 # nginx['ssl_password_file'] = nil # Path to file with passphrases for ssl certificate secret keys
-nginx['listen_addresses'] = ['*', '[::]']
 nginx['listen_addresses'] = ['{{ gitlab_server_nginx_listen_addresses | join("', '") }}']
 
 ##! **Defaults to forcing web browsers to always communicate using only HTTPS**
@@ -1845,7 +2041,11 @@ nginx['real_ip_recursive'] = '{{ 'on' if gitlab_server_nginx_real_ip_recursive e
 ################################################################################
 
 ##! Define to enable GitLab Pages
+{% if gitlab_server_pages_external_url is defined %}
+pages_external_url "{{ gitlab_server_pages_external_url }}"
+{% else %}
 # pages_external_url "http://pages.example.com/"
+{% endif %}
 {% if gitlab_server_pages_enable is defined %}
 gitlab_pages['enable'] = {{ gitlab_server_pages_enable | lower }}
 {% else %}

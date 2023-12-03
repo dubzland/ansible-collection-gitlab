@@ -7,3 +7,72 @@
         name: dubzland.gitlab.gitlab_server
       vars:
         gitlab_server_puma_worker_processes: 0
+        gitlab_server_nginx_real_ip_trusted_addresses:
+          - 127.0.0.1
+        gitlab_server_nginx_real_ip_header: "X-Forwarded-For"
+        gitlab_server_nginx_real_ip_recursive: true
+        gitlab_server_smtp_enable: true
+        gitlab_server_smtp_address: "127.0.0.1"
+        gitlab_server_smtp_port: 465
+        gitlab_server_smtp_user_name: gitlab
+        gitlab_server_smtp_password: supersekret
+        gitlab_server_smtp_domain: "example.com"
+        gitlab_server_smtp_authentication: login
+        gitlab_server_smtp_enable_starttls_auto: true
+        gitlab_server_smtp_tls: false
+        gitlab_server_smtp_pool: true
+        gitlab_server_smtp_openssl_verify_mode: peer
+        gitlab_server_smtp_ca_path: /etc/ssl/certs
+        gitlab_server_smtp_ca_file: /etc/ssl/certs/ca-certificates.crt
+        gitlab_server_email_enabled: true
+        gitlab_server_email_from: "gitlab@example.com"
+        gitlab_server_email_display_name: "GitLab"
+        gitlab_server_email_reply_to: "noreply@example.com"
+        gitlab_server_pages_enable: true
+        gitlab_server_pages_external_url: "https://pages.example.io"
+        gitlab_server_pages_external_http:
+          - "127.0.0.1:80"
+        gitlab_server_pages_redirect_http: false
+        gitlab_server_pages_access_control: false
+        gitlab_server_pages_nginx_enable: false
+        gitlab_server_object_store_enabled: true
+        gitlab_server_object_store_connection:
+          provider: AWS
+          region: "us-east-1"
+          endpoint: "http://minio.example.com:9000"
+          aws_access_key_id: gitlab
+          aws_secret_access_key: gitlabsekret
+          path_style: true
+        gitlab_server_object_store_proxy_download: true
+        gitlab_server_object_store_bucket_artifacts: "gitlab-artifacts"
+        gitlab_server_object_store_bucket_external_diffs: "gitlab-external-diffs"
+        gitlab_server_object_store_bucket_lfs: "gitlab-lfs"
+        gitlab_server_object_store_bucket_uploads: "gitlab-uploads"
+        gitlab_server_object_store_bucket_packages: "gitlab-packages"
+        gitlab_server_object_store_bucket_dependency_proxy: "gitlab-depdency-proxy"
+        gitlab_server_object_store_bucket_terraform_state: "gitlab-terraform-state"
+        gitlab_server_object_store_bucket_ci_secure_files: "gitlab-ci-secure-files"
+        gitlab_server_object_store_bucket_pages: "gitlab-pages"
+        gitlab_server_manage_backup_path: true
+        gitlab_server_backup_path: "/srv/gitlab/backups"
+        gitlab_server_backup_keep_time: 604800
+        gitlab_server_registry_enabled: true
+        gitlab_server_registry_external_url: "https://registry.example.com"
+        gitlab_server_registry_storage:
+          provider: s3
+          accessKey: gitlab
+          secretKey: gitlabsekret
+          bucket: gitlab-registry
+          region: us-east-1
+          regionendpoint: minio.example.com
+          pathstyle: true
+          disable_redirect: true
+    - name: Schedule GitLab backups
+      ansible.builtin.cron:
+        name: GitLab application backup
+        weekday: "*"
+        minute: "0"
+        hour: "2"
+        user: root
+        job: "CRON=1 /opt/gitlab/bin/gitlab-backup create"
+        cron_file: gitlab-backup

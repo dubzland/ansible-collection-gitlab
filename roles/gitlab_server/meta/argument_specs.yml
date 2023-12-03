@@ -65,6 +65,71 @@ argument_specs:
       gitlab_server_nginx_real_ip_recursive:
         type: bool
         description: Enable Nginx Real-Ip recursive search.
+      gitlab_server_smtp_enable:
+        type: bool
+        description: >-
+          Enables sending email via an external server, as opposed to using
+          Sendmail or Postfix directly.
+      gitlab_server_smtp_address:
+        type: str
+        description: >-
+          Address of the SMTP server used for sending emails.
+      gitlab_server_smtp_port:
+        type: int
+        description: Port the O(gitlab_server_smtp_address) is listening on.
+      gitlab_server_smtp_user_name:
+        type: str
+        description: Username used to authenticate to the SMTP server.
+      gitlab_server_smtp_password:
+        type: str
+        description: Password that corresponds to O(gitlab_server_smtp_user_name).
+      gitlab_server_smtp_domain:
+        type: str
+        description: Domain to authenticate to.
+      gitlab_server_smtp_authentication:
+        type: str
+        choices:
+          - login
+          - plain
+        description: Authentication method to use with the SMTP server.
+      gitlab_server_smtp_enable_starttls_auto:
+        type: bool
+        description: Use STARTTLS on the SMTP server if present.
+      gitlab_server_smtp_tls:
+        type: bool
+        description: Enables TLS authentication with the SMTP server.
+      gitlab_server_smtp_pool:
+        type: bool
+        description: Enables SMTP connection pooling.
+      gitlab_server_smtp_openssl_verify_mode:
+        type: str
+        choices:
+          - none
+          - peer
+          - client_once
+          - fail_if_no_peer_cert
+        description: >-
+          Sets how OpenSSL checks the certificate.  See
+          L(ActionMailer,https://api.rubyonrails.org/classes/ActionMailer/Base.html)
+          for more information.
+      gitlab_server_smtp_ca_path:
+        type: path
+        description: Path to the CA to use for validating peer cerficates.
+      gitlab_server_smtp_ca_file:
+        type: path
+        description: Actual CA certificate.
+      gitlab_server_email_enabled:
+        type: bool
+        description: Enables email originating from the GitLab server.
+      gitlab_server_email_from:
+        type: str
+        description: Email address listed as the sender on outbound emails.
+      gitlab_server_email_display_name:
+        type: str
+        description: Name displayed as the sender on outbound emails.
+      gitlab_server_email_reply_to:
+        type: str
+        description: Reply-to address for outbound emails.
       gitlab_server_pages_enable:
         type: bool
         default: false
@@ -110,3 +175,152 @@ argument_specs:
           Enables
           L(Access control,https://docs.gitlab.com/ee/administration/pages/#access-control)
           for the Pages daemon.
+      gitlab_server_object_store_enabled:
+        type: bool
+        description: Enables the consoldated configuration for Object Storage.
+      gitlab_server_object_store_connection:
+        type: dict
+        options:
+          provider:
+            type: str
+            choices:
+              - AWS
+              - Google
+              - AzureRM
+          region:
+            type: str
+            description: AWS Region (us-east-1 for Minio)
+          endpoint:
+            type: str
+            description: >-
+              Can be used to configure an S3 compatible service (like Minio).
+          aws_access_key_id:
+            type: str
+            description: AWS credentials.
+          aws_secret_access_key:
+            type: str
+            description: AWS credentials.
+          path_style:
+            type: bool
+            description: Set to V(true) if using Minio, otherwise V(false).
+        required_if:
+          - [
+              "provider",
+              "AWS",
+              [
+                "region",
+                "endpoint",
+                "aws_access_key_id",
+                "aws_secret_access_key",
+              ],
+              False,
+            ]
+        description: >-
+          Connection configuration for the object store.  See
+          L(https://docs.gitlab.com/ee/administration/object_storage.html)
+          for details.
+      gitlab_server_object_store_proxy_download:
+        type: bool
+        description: Proxy all object requests through the GitLab server.
+      gitlab_server_object_store_bucket_artifacts:
+        type: str
+        description: Name of the bucket used for artifact storage.
+      gitlab_server_object_store_bucket_external_diffs:
+        type: str
+        description: Name of the bucket used for merge request diffs.
+      gitlab_server_object_store_bucket_lfs:
+        type: str
+        description: Name of the bucket used for Large File Storage.
+      gitlab_server_object_store_bucket_uploads:
+        type: str
+        description: Name of the bucket used for uploads.
+      gitlab_server_object_store_bucket_packages:
+        type: str
+        description: Name of the bucket used for project packages.
+      gitlab_server_object_store_bucket_dependency_proxy:
+        type: str
+        description: Name of the bucket used for dependency proxy caching.
+      gitlab_server_object_store_bucket_terraform_state:
+        type: str
+        description: Name of the bucket used for storing Terraform state.
+      gitlab_server_object_store_bucket_ci_secure_files:
+        type: str
+        description: >-
+          Name of the bucket used for storing secured files used during CI
+          runs.  See L(https://docs.gitlab.com/ee/administration/secure_files.html)
+          for details.
+      gitlab_server_object_store_bucket_pages:
+        type: str
+        description: Name of the bucket used for storing Gitlab Pages.
+      gitlab_server_manage_backup_path:
+        type: bool
+        description: >-
+          Should GitLab manage the permissions and ownership of the directory
+          specified in O(gitlab_server_backup_path)?
+      gitlab_server_backup_path:
+        type: path
+        description: Directory on the GitLab server to hold backup data.
+      gitlab_server_backup_keep_time:
+        type: int
+        description: Amount of time (in seconds) to keep old backup files.
+      gitlab_server_registry_enabled:
+        type: bool
+        description: Enables the GitLab Container Registry.
+      gitlab_server_registry_external_url:
+        type: str
+        description: URL under which the Container Registry is available.
+      gitlab_server_registry_host:
+        type: str
+        description: Host running the Docker registry daemon.
+      gitlab_server_registry_port:
+        type: int
+        description: Port the O(gitlab_server_registry_host) is listening on.
+      gitlab_server_registry_path:
+        type: path
+        description: Directory on the GitLab server where registry data should be stored.
+      gitlab_server_registry_storage:
+        type: dict
+        options:
+          provider:
+            type: str
+            choices:
+              - s3
+          accessKey:
+            type: str
+            description: AWS credentials.
+          secretKey:
+            type: str
+            description: AWS credentials.
+          bucket:
+            type: str
+            description: Name of the bucket used to store container image data.
+          region:
+            type: str
+            description: AWS Region (us-east-1 for Minio)
+          regionendpoint:
+            type: str
+            description: >-
+              Can be used to configure an S3 compatible service (like Minio).
+          secure:
+            type: bool
+            description: Enables TLS encryption to the storage server.
+          pathstyle:
+            type: bool
+            description: Set to V(true) if using Minio, otherwise V(false).
+          encrypt:
+            type: bool
+            description: Enable server side encryption of Registry data.
+          disable_redirect:
+            type: bool
+            description: Disables redirection of registry requests to the storage server.
+        required_if:
+          - [
+              "provider",
+              "s3",
+              ["accessKey", "secretKey", "bucket", "region"],
+              False,
+            ]
+        description: >-
+          Connection configuration for the object store.  See
+          L(https://docs.gitlab.com/ee/administration/object_storage.html)
+          for details.

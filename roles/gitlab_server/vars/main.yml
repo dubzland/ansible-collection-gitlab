@@ -2,6 +2,7 @@
 gitlab_server_prerequisites:
   - apt-transport-https
   - ca-certificates
+  - cron
   - curl
   - debian-archive-keyring
   - gnupg

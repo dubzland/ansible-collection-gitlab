@@ -1,8 +1,7 @@
 ---
 namespace: dubzland
 name: gitlab
-# TODO: Bump to 1.0 when modules complete
-version: "0.0.1" # noqa: galaxy[version-incorrect]
+version: "1.0.0"
 readme: README.md
 authors:
   - Josh Williams <jdubz@dubzland.com>

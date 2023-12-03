@@ -14,7 +14,28 @@ gitlab_server_nginx_listen_port: 80
 gitlab_server_nginx_listen_https: false
 # gitlab_server_nginx_real_ip_trusted_addresses: []
 # gitlab_server_nginx_real_ip_header: 'X-Forwarded-For'
-# gitlab_server_nginx_real_ip_recursive: True
+# gitlab_server_nginx_real_ip_recursive: true
+
+#
+# SMTP configuration
+#
+# gitlab_server_smtp_enable: true
+# gitlab_server_smtp_address: smtp_server
+# gitlab_server_smtp_port: 465
+# gitlab_server_smtp_user_name: "smtp user"
+# gitlab_server_smtp_password: "smtp password"
+# gitlab_server_smtp_domain: "example.com"
+# gitlab_server_smtp_authentication: "login"
+# gitlab_server_smtp_enable_starttls_auto: true
+# gitlab_server_smtp_tls: false
+# gitlab_server_smtp_pool: false
+# gitlab_server_smtp_openssl_verify_mode: none
+# gitlab_server_smtp_ca_path: /etc/ssl/certs
+# gitlab_server_smtp_ca_file: /etc/ssl/certs/ca-certificates.crt
+# gitlab_server_email_enabled: true
+# gitlab_server_email_from: "example@example.com"
+# gitlab_server_email_display_name: Example
+# gitlab_server_email_reply_to: "noreply@example.com"
 
 #
 # Pages configuration
@@ -29,3 +50,37 @@ gitlab_server_pages_enable: false
 # gitlab_server_pages_cert_key: |-
 #   /etc/gitlab/ssl/#{Gitlab['gitlab_pages']['domain']}.key"
 # gitlab_server_pages_access_control: false
+# gitlab_server_pages_nginx_enable: true
+
+#
+# Object Storage
+#
+# gitlab_server_object_store_enabled: false
+# gitlab_server_object_store_connection: {}
+# gitlab_server_object_store_proxy_download: false
+# gitlab_server_object_store_bucket_artifacts: ""
+# gitlab_server_object_store_bucket_external_diffs: ""
+# gitlab_server_object_store_bucket_lfs: ""
+# gitlab_server_object_store_bucket_uploads: ""
+# gitlab_server_object_store_bucket_packages: ""
+# gitlab_server_object_store_bucket_dependency_proxy: ""
+# gitlab_server_object_store_bucket_terraform_state: ""
+# gitlab_server_object_store_bucket_ci_secure_files: ""
+# gitlab_server_object_store_bucket_pages: ""
+
+#
+# Backups
+#
+# gitlab_server_manage_backup_path: true
+# gitlab_server_backup_path: /var/opt/gitlab/backups
+# gitlab_server_backup_keep_time: 604800
+
+#
+# Docker Registry
+#
+# gitlab_server_registry_enabled: true
+# gitlab_server_registry_external_url: "https://registry.example.com"
+# gitlab_server_registry_host: localhost
+# gitlab_server_registry_port: 5050
+# gitlab_server_registry_path: "/var/opt/gitlab/gitlab-rails/shared/registry"
+# gitlab_server_registry_storage: {}

@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2023-12-03
+
+### Added
+
+- Basic configuration (#2)
+- Pages configuration (#3)
+- SMTP configuration (#4)
+- Object Storage configuration (#5)
+- Docker registry configuration (#6)
+- Backup configuration (#7)
+
+### Changed
+
+- Limit CI on merges to most recent versions of python/Ansible.
+
+## [0.0.1] - 2023-12-01
+
 ### Added
 
 - GitLab server role
+
+[1.0.0]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/compare/0.0.1...1.0.0
+[0.0.1]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/tree/0.0.1
