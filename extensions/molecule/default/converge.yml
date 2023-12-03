@@ -53,3 +53,15 @@
         gitlab_server_object_store_bucket_terraform_state: "gitlab-terraform-state"
         gitlab_server_object_store_bucket_ci_secure_files: "gitlab-ci-secure-files"
         gitlab_server_object_store_bucket_pages: "gitlab-pages"
+        gitlab_server_manage_backup_path: true
+        gitlab_server_backup_path: "/srv/gitlab/backups"
+        gitlab_server_backup_keep_time: 604800
+    - name: Schedule GitLab backups
+      ansible.builtin.cron:
+        name: GitLab application backup
+        weekday: "*"
+        minute: "0"
+        hour: "2"
+        user: root
+        job: "CRON=1 /opt/gitlab/bin/gitlab-backup create"
+        cron_file: gitlab-backup

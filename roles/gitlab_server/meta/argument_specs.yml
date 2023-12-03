@@ -252,3 +252,14 @@ argument_specs:
       gitlab_server_object_store_bucket_pages:
         type: str
         description: Name of the bucket used for storing Gitlab Pages.
+      gitlab_server_manage_backup_path:
+        type: bool
+        description: >-
+          Should GitLab manage the permissions and ownership of the directory
+          specified in O(gitlab_server_backup_path)?
+      gitlab_server_backup_path:
+        type: path
+        description: Directory on the GitLab server to hold backup data.
+      gitlab_server_backup_keep_time:
+        type: int
+        description: Amount of time (in seconds) to keep old backup files.

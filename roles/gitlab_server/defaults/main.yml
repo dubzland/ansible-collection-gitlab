@@ -67,3 +67,10 @@ gitlab_server_pages_enable: false
 # gitlab_server_object_store_bucket_terraform_state: ""
 # gitlab_server_object_store_bucket_ci_secure_files: ""
 # gitlab_server_object_store_bucket_pages: ""
+
+#
+# Backups
+#
+# gitlab_server_manage_backup_path: true
+# gitlab_server_backup_path: /var/opt/gitlab/backups
+# gitlab_server_backup_keep_time: 604800
