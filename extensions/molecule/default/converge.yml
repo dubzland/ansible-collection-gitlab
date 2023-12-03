@@ -7,3 +7,24 @@
         name: dubzland.gitlab.gitlab_server
       vars:
         gitlab_server_puma_worker_processes: 0
+        gitlab_server_nginx_real_ip_trusted_addresses:
+          - 127.0.0.1
+        gitlab_server_nginx_real_ip_header: "X-Forwarded-For"
+        gitlab_server_nginx_real_ip_recursive: true
+        gitlab_server_smtp_enable: true
+        gitlab_server_smtp_address: "127.0.0.1"
+        gitlab_server_smtp_port: 465
+        gitlab_server_smtp_user_name: gitlab
+        gitlab_server_smtp_password: supersekret
+        gitlab_server_smtp_domain: "example.com"
+        gitlab_server_smtp_authentication: login
+        gitlab_server_smtp_enable_starttls_auto: true
+        gitlab_server_smtp_tls: false
+        gitlab_server_smtp_pool: true
+        gitlab_server_smtp_openssl_verify_mode: peer
+        gitlab_server_smtp_ca_path: /etc/ssl/certs
+        gitlab_server_smtp_ca_file: /etc/ssl/certs/ca-certificates.crt
+        gitlab_server_smtp_email_enabled: true
+        gitlab_server_smtp_email_from: "gitlab@example.com"
+        gitlab_server_smtp_email_display_name: "GitLab"
+        gitlab_server_smtp_email_reply_to: "noreply@example.com"

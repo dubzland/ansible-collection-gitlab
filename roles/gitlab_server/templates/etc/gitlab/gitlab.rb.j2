@@ -82,33 +82,101 @@ external_url '{{ gitlab_server_external_url }}'
 ###! Docs: https://docs.gitlab.com/omnibus/settings/smtp.html
 ###! **Use smtp instead of sendmail/postfix.**
 
+{% if gitlab_server_smtp_enable is defined %}
+gitlab_rails['smtp_enable'] = {{ gitlab_server_smtp_enable | lower }}
+{% else %}
 # gitlab_rails['smtp_enable'] = true
+{% endif %}
+{% if gitlab_server_smtp_address is defined %}
+gitlab_rails['smtp_address'] = "{{ gitlab_server_smtp_address }}"
+{% else %}
 # gitlab_rails['smtp_address'] = "smtp.server"
+{% endif %}
+{% if gitlab_server_smtp_port is defined %}
+gitlab_rails['smtp_port'] = {{ gitlab_server_smtp_port }}
+{% else %}
 # gitlab_rails['smtp_port'] = 465
+{% endif %}
+{% if gitlab_server_smtp_user_name is defined %}
+gitlab_rails['smtp_user_name'] = "{{ gitlab_server_smtp_user_name }}"
+{% else %}
 # gitlab_rails['smtp_user_name'] = "smtp user"
+{% endif %}
+{% if gitlab_server_smtp_password is defined %}
+gitlab_rails['smtp_password'] = "{{ gitlab_server_smtp_password }}"
+{% else %}
 # gitlab_rails['smtp_password'] = "smtp password"
+{% endif %}
+{% if gitlab_server_smtp_domain is defined %}
+gitlab_rails['smtp_domain'] = "{{ gitlab_server_smtp_domain }}"
+{% else %}
 # gitlab_rails['smtp_domain'] = "example.com"
+{% endif %}
+{% if gitlab_server_smtp_authentication is defined %}
+gitlab_rails['smtp_authentication'] = "{{ gitlab_server_smtp_authentication }}"
+{% else %}
 # gitlab_rails['smtp_authentication'] = "login"
+{% endif %}
+{% if gitlab_server_smtp_enable_starttls_auto is defined %}
+gitlab_rails['smtp_enable_starttls_auto'] = {{ gitlab_server_smtp_enable_starttls_auto | lower }}
+{% else %}
 # gitlab_rails['smtp_enable_starttls_auto'] = true
+{% endif %}
+{% if gitlab_server_smtp_tls is defined %}
+gitlab_rails['smtp_tls'] = {{ gitlab_server_smtp_tls | lower }}
+{% else %}
 # gitlab_rails['smtp_tls'] = false
+{% endif %}
+{% if gitlab_server_smtp_pool is defined %}
+gitlab_rails['smtp_pool'] = {{ gitlab_server_smtp_pool | lower }}
+{% else %}
 # gitlab_rails['smtp_pool'] = false
+{% endif %}
 
 ###! **Can be: 'none', 'peer', 'client_once', 'fail_if_no_peer_cert'**
 ###! Docs: http://api.rubyonrails.org/classes/ActionMailer/Base.html
+{% if gitlab_server_smtp_openssl_verify_mode is defined %}
+gitlab_rails['smtp_openssl_verify_mode'] = '{{ gitlab_server_smtp_openssl_verify_mode }}'
+{% else %}
 # gitlab_rails['smtp_openssl_verify_mode'] = 'none'
+{% endif %}
 
+{% if gitlab_server_smtp_ca_path is defined %}
+gitlab_rails['smtp_ca_path'] = "{{ gitlab_server_smtp_ca_path }}"
+{% else %}
 # gitlab_rails['smtp_ca_path'] = "/etc/ssl/certs"
+{% endif %}
+{% if gitlab_server_smtp_ca_file is defined %}
+gitlab_rails['smtp_ca_file'] = "{{ gitlab_server_smtp_ca_file }}"
+{% else %}
 # gitlab_rails['smtp_ca_file'] = "/etc/ssl/certs/ca-certificates.crt"
+{% endif %}
 
 ### Email Settings
 
+{% if gitlab_server_email_enabled is defined %}
+gitlab_rails['gitlab_email_enabled'] = {{ gitlab_server_email_enabled | lower }}
+{% else %}
 # gitlab_rails['gitlab_email_enabled'] = true
+{% endif %}
 
 ##! If your SMTP server does not like the default 'From: gitlab@gitlab.example.com'
 ##! can change the 'From' with this setting.
+{% if gitlab_server_email_from is defined %}
+gitlab_rails['gitlab_email_from'] = '{{ gitlab_server_email_from }}'
+{% else %}
 # gitlab_rails['gitlab_email_from'] = 'example@example.com'
+{% endif %}
+{% if gitlab_server_email_display_name is defined %}
+gitlab_rails['gitlab_email_display_name'] = '{{ gitlab_server_email_display_name }}'
+{% else %}
 # gitlab_rails['gitlab_email_display_name'] = 'Example'
+{% endif %}
+{% if gitlab_server_email_reply_to is defined %}
+gitlab_rails['gitlab_email_reply_to'] = '{{ gitlab_server_email_reply_to }}'
+{% else %}
 # gitlab_rails['gitlab_email_reply_to'] = 'noreply@example.com'
+{% endif %}
 # gitlab_rails['gitlab_email_subject_suffix'] = ''
 # gitlab_rails['gitlab_email_smime_enabled'] = false
 # gitlab_rails['gitlab_email_smime_key_file'] = '/etc/gitlab/ssl/gitlab_smime.key'
