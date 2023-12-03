@@ -74,3 +74,13 @@ gitlab_server_pages_enable: false
 # gitlab_server_manage_backup_path: true
 # gitlab_server_backup_path: /var/opt/gitlab/backups
 # gitlab_server_backup_keep_time: 604800
+
+#
+# Docker Registry
+#
+# gitlab_server_registry_enabled: true
+# gitlab_server_registry_external_url: "https://registry.example.com"
+# gitlab_server_registry_host: localhost
+# gitlab_server_registry_port: 5050
+# gitlab_server_registry_path: "/var/opt/gitlab/gitlab-rails/shared/registry"
+# gitlab_server_registry_storage: {}

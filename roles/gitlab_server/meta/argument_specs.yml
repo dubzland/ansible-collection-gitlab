@@ -263,3 +263,64 @@ argument_specs:
       gitlab_server_backup_keep_time:
         type: int
         description: Amount of time (in seconds) to keep old backup files.
+      gitlab_server_registry_enabled:
+        type: bool
+        description: Enables the GitLab Container Registry.
+      gitlab_server_registry_external_url:
+        type: str
+        description: URL under which the Container Registry is available.
+      gitlab_server_registry_host:
+        type: str
+        description: Host running the Docker registry daemon.
+      gitlab_server_registry_port:
+        type: int
+        description: Port the O(gitlab_server_registry_host) is listening on.
+      gitlab_server_registry_path:
+        type: path
+        description: Directory on the GitLab server where registry data should be stored.
+      gitlab_server_registry_storage:
+        type: dict
+        options:
+          provider:
+            type: str
+            choices:
+              - s3
+          accessKey:
+            type: str
+            description: AWS credentials.
+          secretKey:
+            type: str
+            description: AWS credentials.
+          bucket:
+            type: str
+            description: Name of the bucket used to store container image data.
+          region:
+            type: str
+            description: AWS Region (us-east-1 for Minio)
+          regionendpoint:
+            type: str
+            description: >-
+              Can be used to configure an S3 compatible service (like Minio).
+          secure:
+            type: bool
+            description: Enables TLS encryption to the storage server.
+          pathstyle:
+            type: bool
+            description: Set to V(true) if using Minio, otherwise V(false).
+          encrypt:
+            type: bool
+            description: Enable server side encryption of Registry data.
+          disable_redirect:
+            type: bool
+            description: Disables redirection of registry requests to the storage server.
+        required_if:
+          - [
+              "provider",
+              "s3",
+              ["accessKey", "secretKey", "bucket", "region"],
+              False,
+            ]
+        description: >-
+          Connection configuration for the object store.  See
+          L(https://docs.gitlab.com/ee/administration/object_storage.html)
+          for details.

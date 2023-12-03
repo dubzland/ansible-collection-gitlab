@@ -1072,13 +1072,33 @@ gitlab_rails['backup_keep_time'] = {{ gitlab_server_backup_keep_time }}
 ##! Docs: https://docs.gitlab.com/ee/administration/packages/container_registry.html
 ################################################################################
 
+{% if gitlab_server_registry_external_url is defined %}
+registry_external_url '{{ gitlab_server_registry_external_url }}'
+{% else %}
 # registry_external_url 'https://registry.example.com'
+{% endif %}
 
 ### Settings used by GitLab application
+{% if gitlab_server_registry_enabled is defined %}
+gitlab_rails['registry_enabled'] = {{ gitlab_server_registry_enabled | lower }}
+{% else %}
 # gitlab_rails['registry_enabled'] = true
+{% endif %}
+{% if gitlab_server_registry_host is defined %}
+gitlab_rails['registry_host'] = "{{ gitlab_server_registry_host }}"
+{% else %}
 # gitlab_rails['registry_host'] = "registry.gitlab.example.com"
+{% endif %}
+{% if gitlab_server_registry_port is defined %}
+gitlab_rails['registry_port'] = "{{ gitlab_server_registry_port }}"
+{% else %}
 # gitlab_rails['registry_port'] = "5005"
+{% endif %}
+{% if gitlab_server_registry_path is defined %}
+gitlab_rails['registry_path'] = "{{ gitlab_server_registry_path }}"
+{% else %}
 # gitlab_rails['registry_path'] = "/var/opt/gitlab/gitlab-rails/shared/registry"
+{% endif %}
 
 # Notification secret, it's used to authenticate notification requests to GitLab application
 # You only need to change this when you use external Registry service, otherwise
@@ -1118,6 +1138,35 @@ gitlab_rails['backup_keep_time'] = {{ gitlab_server_backup_keep_time }}
 
 ### Registry backend storage
 ###! Docs: https://docs.gitlab.com/ee/administration/packages/container_registry.html#configure-storage-for-the-container-registry
+{% if gitlab_server_registry_storage is defined %}
+registry['storage'] = {
+  '{{ gitlab_server_registry_storage["provider"] }}' => {
+{%   if gitlab_server_registry_storage["provider"] == "s3" %}
+    'accessKey' => '{{ gitlab_server_registry_storage["accessKey"] }}',
+    'secretKey' => '{{ gitlab_server_registry_storage["secretKey"] }}',
+    'bucket' => '{{ gitlab_server_registry_storage["bucket"] }}',
+    'region' => '{{ gitlab_server_registry_storage["region"] }}',
+{%     if "regionendpoint" in gitlab_server_registry_storage %}
+    'regionendpoint' => '{{ gitlab_server_registry_storage["regionendpoint"] }}',
+{%     endif %}
+{%     if "secure" in gitlab_server_registry_storage %}
+    'secure' => {{ gitlab_server_registry_storage["secure"] | lower }},
+{%     endif %}
+{%     if "pathstyle" in gitlab_server_registry_storage %}
+    'pathstyle' => {{ gitlab_server_registry_storage["pathstyle"] | lower }},
+{%     endif %}
+{%     if "encrypt" in gitlab_server_registry_storage %}
+    'encrypt' => {{ gitlab_server_registry_storage["encrypt"] | lower }},
+{%     endif %}
+{%   endif %}
+  },
+{%   if "disable_redirect" in gitlab_server_registry_storage %}
+  'redirect' => {
+    'disable' => {{ gitlab_server_registry_storage["disable_redirect"] | lower }}
+  }
+{%   endif %}
+}
+{% else %}
 # registry['storage'] = {
 #   's3' => {
 #     'accesskey' => 's3-access-key',
@@ -1130,6 +1179,7 @@ gitlab_rails['backup_keep_time'] = {{ gitlab_server_backup_keep_time }}
 #     'disable' => false
 #   }
 # }
+{% endif %}
 
 ### Registry database
 ###! Docs: https://docs.gitlab.com/ee/administration/packages/container_registry.html?tab=Linux+package+%28Omnibus%29#configure-a-metadata-database-for-the-container-registry
