@@ -23,7 +23,7 @@ stages:
     paths:
       - .cache/pip/
 
-sanity:
+.sanity:
   extends: .ansible
   stage: lint
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-python:${PYTHON_VERSION}
@@ -32,6 +32,22 @@ sanity:
     - python -m pip install https://github.com/ansible/ansible/archive/${ANSIBLE_VERSION}.tar.gz
   script:
     - ansible-test sanity --local --requirements --junit
+  artifacts:
+    when: always
+    reports:
+      junit: tests/output/**/*.xml
+
+sanity-merge:
+  extends: .sanity
+  variables:
+    PYTHON_VERSION: "3.12"
+    ANSIBLE_VERSION: "stable-2.16"
+  only:
+    refs:
+      - merge_requests
+
+sanity-release:
+  extends: .sanity
   parallel:
     matrix:
       - PYTHON_VERSION: "3.8"
@@ -62,16 +78,11 @@ sanity:
           - "stable-2.16"
           - "devel"
           - "milestone"
-  artifacts:
-    when: always
-    reports:
-      junit: tests/output/**/*.xml
   only:
     refs:
-      - merge_requests
-      - main
+      - tags
 
-molecule:
+.molecule:
   extends: .ansible
   stage: test
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-python:${PYTHON_VERSION}-docker
@@ -86,6 +97,20 @@ molecule:
     - cd extensions
   script:
     - molecule test
+
+molecule-merge:
+  extends: .molecule
+  parallel:
+    matrix:
+      PYTHON_VERSION: "3.12"
+      ANSIBLE_VERSION: "stable-2.16"
+      MOLECULE_DISTRO: bookworm
+  only:
+    refs:
+      - merge_requests
+
+molecule-release:
+  extends: .molecule
   parallel:
     matrix:
       - PYTHON_VERSION: "3.8"
@@ -143,8 +168,7 @@ molecule:
           - focal
   only:
     refs:
-      - merge_requests
-      - main
+      - tags
 
 build:
   stage: build
@@ -175,8 +199,6 @@ build:
 release:
   stage: deploy
   image: registry.gitlab.com/gitlab-org/release-cli:latest
-  rules:
-    - if: $CI_COMMIT_TAG
   script:
     - |
       release-cli create --name "Release $CI_COMMIT_TAG" \
@@ -184,6 +206,9 @@ release:
         --tag-name $CI_COMMIT_TAG \
         --assets-link "{\"name\":\"${CI_PROJECT_NAMESPACE}-gitlab-${CI_COMMIT_TAG}.tar.gz\",\"url\":\"${PACKAGE_REGISTRY_URL}/${CI_PROJECT_NAMESPACE}-gitlab/${CI_COMMIT_TAG}/${CI_PROJECT_NAMESPACE}-gitlab-${CI_COMMIT_TAG}.tar.gz\"}" \
         --assets-link "{\"name\":\"${CI_PROJECT_NAMESPACE}-gitlab-${CI_COMMIT_TAG}.tar.gz.sha256sum\",\"url\":\"${PACKAGE_REGISTRY_URL}/${CI_PROJECT_NAMESPACE}-gitlab/${CI_COMMIT_TAG}/${CI_PROJECT_NAMESPACE}-gitlab-${CI_COMMIT_TAG}.tar.gz.sha256sum\"}" \
+  only:
+    refs:
+      - tags
 
 galaxy:
   stage: deploy
