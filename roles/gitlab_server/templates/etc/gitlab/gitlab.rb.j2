@@ -1142,8 +1142,8 @@ gitlab_rails['registry_path'] = "{{ gitlab_server_registry_path }}"
 registry['storage'] = {
   '{{ gitlab_server_registry_storage["provider"] }}' => {
 {%   if gitlab_server_registry_storage["provider"] == "s3" %}
-    'accessKey' => '{{ gitlab_server_registry_storage["accessKey"] }}',
-    'secretKey' => '{{ gitlab_server_registry_storage["secretKey"] }}',
+    'accesskey' => '{{ gitlab_server_registry_storage["accesskey"] }}',
+    'secretkey' => '{{ gitlab_server_registry_storage["secretkey"] }}',
     'bucket' => '{{ gitlab_server_registry_storage["bucket"] }}',
     'region' => '{{ gitlab_server_registry_storage["region"] }}',
 {%     if "regionendpoint" in gitlab_server_registry_storage %}

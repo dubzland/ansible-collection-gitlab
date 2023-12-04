@@ -273,10 +273,10 @@ argument_specs:
             type: str
             choices:
               - s3
-          accessKey:
+          accesskey:
             type: str
             description: AWS credentials.
-          secretKey:
+          secretkey:
             type: str
             description: AWS credentials.
           bucket:
