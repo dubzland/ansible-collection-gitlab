@@ -203,18 +203,6 @@ argument_specs:
           path_style:
             type: bool
             description: Set to V(true) if using Minio, otherwise V(false).
-        required_if:
-          - [
-              "provider",
-              "AWS",
-              [
-                "region",
-                "endpoint",
-                "aws_access_key_id",
-                "aws_secret_access_key",
-              ],
-              False,
-            ]
         description: >-
           Connection configuration for the object store.  See
           L(https://docs.gitlab.com/ee/administration/object_storage.html)
@@ -313,13 +301,6 @@ argument_specs:
           disable_redirect:
             type: bool
             description: Disables redirection of registry requests to the storage server.
-        required_if:
-          - [
-              "provider",
-              "s3",
-              ["accessKey", "secretKey", "bucket", "region"],
-              False,
-            ]
         description: >-
           Connection configuration for the object store.  See
           L(https://docs.gitlab.com/ee/administration/object_storage.html)
