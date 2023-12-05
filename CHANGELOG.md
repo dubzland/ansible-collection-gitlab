@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Update keys for S3 credentials (`accesskey` and `secretkey`) (#9)
+
 ## [1.0.1] - 2023-12-04
 
 ### Fixed
