@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2023-12-05
+
 ### Fixed
 
 - Update keys for S3 credentials (`accesskey` and `secretkey`) (#9)
+
+### Added
+
+- Nginx configuration for the Registry server (#10)
 
 ## [1.0.1] - 2023-12-04
 
@@ -38,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - GitLab server role
 
+[1.0.1]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/compare/1.0.1...1.0.2
 [1.0.1]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/compare/1.0.0...1.0.1
 [1.0.0]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/compare/0.0.1...1.0.0
 [0.0.1]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/tree/0.0.1

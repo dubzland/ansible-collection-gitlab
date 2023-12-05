@@ -84,3 +84,6 @@ gitlab_server_pages_enable: false
 # gitlab_server_registry_port: 5050
 # gitlab_server_registry_path: "/var/opt/gitlab/gitlab-rails/shared/registry"
 # gitlab_server_registry_storage: {}
+# gitlab_server_registry_nginx_enable: true
+# gitlab_server_registry_nginx_listen_port: 80
+# gitlab_server_registry_nginx_listen_https: true

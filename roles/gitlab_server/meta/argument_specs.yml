@@ -305,3 +305,12 @@ argument_specs:
           Connection configuration for the object store.  See
           L(https://docs.gitlab.com/ee/administration/object_storage.html)
           for details.
+      gitlab_server_registry_nginx_enable:
+        type: bool
+        description: Enable the Nginx server for Registry access.
+      gitlab_server_registry_nginx_listen_port:
+        type: int
+        description: Port the Registry Nginx server should listen on.
+      gitlab_server_registry_nginx_listen_https:
+        type: bool
+        description: Enable or disable HTTPS for the Registry Nginx instance.
