@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update keys for S3 credentials (`accesskey` and `secretkey`) (#9)
 
+### Added
+
+- Nginx configuration for the Registry server (#10)
+
 ## [1.0.1] - 2023-12-04
 
 ### Fixed
