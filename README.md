@@ -37,4 +37,4 @@ See [LICENSE](https://git.dubzland.com/dubzland/ansible-collection-minio/blob/ma
 
 - [Josh Williams](https://codingprime.com)
 
-[gitlab_server]: https://docs.gitlab.io/ansible-collections/collections/dubzland/gitlab/gitlab_server_role.html
+[gitlab_server]: https://docs.dubzland.io/ansible-collections/collections/dubzland/gitlab/gitlab_server_role.html

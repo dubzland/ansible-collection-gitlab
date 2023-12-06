@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Update documentation links in argument specs (#12)
+### Added
+
 - Migrate `only`/`except` to rules (#14).
+
+### Fixed
+
+- Update documentation links in argument specs (#12)
+- Update role documentation link in README (#13)
 
 ## [1.0.2] - 2023-12-05
 
