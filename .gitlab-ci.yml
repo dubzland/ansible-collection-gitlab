@@ -133,7 +133,7 @@ docs:
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-python:3.12
   before_script:
     - apk add rsync
-    - python -m pip install requirements-dev.txt
+    - python -m pip install -r requirements-dev.txt
   script:
     - set -e
     - mkdir dest
@@ -148,10 +148,6 @@ docs:
     - cd dest
     - pip install -r requirements.txt
     - ./build.sh
-
-  variables:
-    PYTHON_VERSION: "3.12"
-    ANSIBLE_VERSION: "stable-2.16"
 
 build:
   stage: build
