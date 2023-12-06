@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Reworked CI jobs to be more intelligent (#15).
+- Removed coverage badge from README (#19).
 
 ### Fixed
 
