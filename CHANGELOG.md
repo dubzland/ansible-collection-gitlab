@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Reworked CI jobs to be more intelligent (#15).
 - Removed coverage badge from README (#19).
+- Limit molecule on release to actual role/test changes (#20).
 
 ### Fixed
 
