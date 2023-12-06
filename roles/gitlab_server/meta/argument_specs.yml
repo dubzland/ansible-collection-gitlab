@@ -34,7 +34,7 @@ argument_specs:
         type: int
         description: |-
           Number of Puma workers to run.  Set to 0 to disable Puma clustered
-          mode.  See L(GitLab Operations: Puma,https://docs.gitlab.com/ee/administration/operations/puma.html#disable-puma-clustered-mode-in-memory-constrained-environments)
+          mode.  See L(https://docs.gitlab.com/ee/administration/operations/puma.html#disable-puma-clustered-mode-in-memory-constrained-environments)
           for more information.  Generally speaking, this setting should not be
           used.  Primarily exists for reducing resource usage during CI runs.
       gitlab_server_nginx_redirect_http_to_https:
@@ -143,7 +143,7 @@ argument_specs:
         description: |-
           List of IP addresses the Pages daemon will bind to (for http).
           Necessary if you want to use custom domains. See
-          L(GitLab Pages Administration,https://docs.gitlab.com/ee/administration/pages/index.html#advanced-configuration)
+          L(https://docs.gitlab.com/ee/administration/pages/index.html#advanced-configuration)
           for more information.
       gitlab_server_pages_external_https:
         type: list
@@ -151,14 +151,14 @@ argument_specs:
         description: |-
           List of IP addresses the Pages daemon will bind to (for https).
           Necessary if you want to use custom domains. See
-          L(GitLab Pages Administration,https://docs.gitlab.com/ee/administration/pages/index.html#advanced-configuration)
+          L(https://docs.gitlab.com/ee/administration/pages/index.html#advanced-configuration)
           for more information.
       gitlab_server_pages_nginx_enable:
         type: bool
         description: |-
           Controls the GitLab Pages Nginx instance.  If you are planning on
           utilizing custom domains, this should be disabled.  See
-          L(GitLab Pages Administration,https://docs.gitlab.com/ee/administration/pages/index.html#advanced-configuration)
+          L(https://docs.gitlab.com/ee/administration/pages/index.html#advanced-configuration)
           for more information.
       gitlab_server_pages_redirect_http:
         type: bool
@@ -173,7 +173,7 @@ argument_specs:
         type: bool
         description: |-
           Enables
-          L(GitLab Pages access control,https://docs.gitlab.com/ee/administration/pages/#access-control)
+          L(Access control,https://docs.gitlab.com/ee/administration/pages/#access-control)
           for the Pages daemon.
       gitlab_server_object_store_enabled:
         type: bool
@@ -205,7 +205,7 @@ argument_specs:
             description: Set to V(true) if using Minio, otherwise V(false).
         description: >-
           Connection configuration for the object store.  See
-          L(GitLab Object Storage Administration,https://docs.gitlab.com/ee/administration/object_storage.html)
+          L(https://docs.gitlab.com/ee/administration/object_storage.html)
           for details.
       gitlab_server_object_store_proxy_download:
         type: bool
@@ -235,11 +235,11 @@ argument_specs:
         type: str
         description: >-
           Name of the bucket used for storing secured files used during CI
-          runs.  See L(GitLab Secure Files Administration,https://docs.gitlab.com/ee/administration/secure_files.html)
+          runs.  See L(https://docs.gitlab.com/ee/administration/secure_files.html)
           for details.
       gitlab_server_object_store_bucket_pages:
         type: str
-        description: Name of the bucket used for storing GitLab Pages.
+        description: Name of the bucket used for storing Gitlab Pages.
       gitlab_server_manage_backup_path:
         type: bool
         description: >-
@@ -303,7 +303,7 @@ argument_specs:
             description: Disables redirection of registry requests to the storage server.
         description: >-
           Connection configuration for the object store.  See
-          L(GitLab Object Storage Administration,https://docs.gitlab.com/ee/administration/object_storage.html)
+          L(https://docs.gitlab.com/ee/administration/object_storage.html)
           for details.
       gitlab_server_registry_nginx_enable:
         type: bool
