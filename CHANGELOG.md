@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Migrate `only`/`except` to rules (#14).
+- Add documentation job to ensure docs build without error (#16).
 
 ### Changed
 

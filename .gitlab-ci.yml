@@ -127,6 +127,32 @@ molecule-release:
   rules:
     - if: $CI_COMMIT_TAG
 
+docs:
+  extends: .ansible
+  stage: test
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-python:3.12
+  before_script:
+    - apk add rsync
+    - python -m pip install requirements-dev.txt
+  script:
+    - set -e
+    - mkdir dest
+    - |
+      antsibull-docs sphinx-init \
+        --use-current \
+        --index-rst rst/index.rst \
+        --dest-dir dest \
+        dubzland.gitlab \
+        dubzland.minio \
+        dubzland.postgresql
+    - cd dest
+    - pip install -r requirements.txt
+    - ./build.sh
+
+  variables:
+    PYTHON_VERSION: "3.12"
+    ANSIBLE_VERSION: "stable-2.16"
+
 build:
   stage: build
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-python:3.10
