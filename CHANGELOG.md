@@ -11,37 +11,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Migrate `only`/`except` to rules (#14).
 
+### Changed
+
+- Reworked CI jobs to be more intelligent (#15).
+
 ### Fixed
 
-- Update documentation links in argument specs (#12)
-- Update role documentation link in README (#13)
+- Update documentation links in argument specs (#12).
+- Update role documentation link in README (#13).
 
 ## [1.0.2] - 2023-12-05
 
 ### Fixed
 
-- Update keys for S3 credentials (`accesskey` and `secretkey`) (#9)
+- Update keys for S3 credentials (`accesskey` and `secretkey`) (#9).
 
 ### Added
 
-- Nginx configuration for the Registry server (#10)
+- Nginx configuration for the Registry server (#10).
 
 ## [1.0.1] - 2023-12-04
 
 ### Fixed
 
-- Removed `required_if` references from argument specs (not valid for roles)
+- Removed `required_if` references from argument specs (not valid for roles).
 
 ## [1.0.0] - 2023-12-03
 
 ### Added
 
-- Basic configuration (#2)
-- Pages configuration (#3)
-- SMTP configuration (#4)
-- Object Storage configuration (#5)
-- Docker registry configuration (#6)
-- Backup configuration (#7)
+- Basic configuration (#2).
+- Pages configuration (#3).
+- SMTP configuration (#4).
+- Object Storage configuration (#5).
+- Docker registry configuration (#6).
+- Backup configuration (#7).
 
 ### Changed
 
