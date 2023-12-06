@@ -201,3 +201,9 @@ galaxy:
     - ansible-galaxy collection publish --token "$GALAXY_API_TOKEN" "./${CI_PROJECT_NAMESPACE}-gitlab-${CI_COMMIT_REF_NAME}.tar.gz"
   rules:
     - if: $CI_COMMIT_TAG
+
+release-docs:
+  stage: deploy
+  trigger: docs/ansible-collections
+  rules:
+    - if: $CI_COMMIT_TAG
