@@ -2,6 +2,8 @@
 - name: Reconfigure GitLab
   ansible.builtin.command:
     cmd: gitlab-ctl reconfigure
+  register: reconfigure_gitlab
+  until: reconfigure_gitlab is not failed
   retries: 3 # Ruby is slow.  Sometimes, it takes a bit to start.
   delay: 10
   changed_when: true
