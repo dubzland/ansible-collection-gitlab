@@ -1,0 +1,28 @@
+---
+- name: Ensure GitLab prerequisites are installed
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ gitlab_common_prerequisites }}"
+
+- name: Ensure the GitLab gpg key is present
+  ansible.builtin.get_url:
+    url: "{{ gitlab_common_gpg_key_url }}"
+    dest: "{{ gitlab_common_gpg_key_dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Ensure the GitLab repository is available
+  ansible.builtin.template:
+    src: etc/apt/sources.list.d/gitlab.list.j2
+    dest: "{{ gitlab_common_repo_dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  register: gitlab_repo
+
+- name: Update the package cache # noqa: no-handler
+  ansible.builtin.apt:
+    update_cache: true
+  when: gitlab_repo.changed

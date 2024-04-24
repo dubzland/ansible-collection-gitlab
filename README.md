@@ -11,7 +11,6 @@ Installs and configures various components of the Gitlab DevOps platform.
 
 This collection has been tested against following ansible-core versions:
 
-- 2.13
 - 2.14
 - 2.15
 - 2.16
@@ -22,18 +21,22 @@ Also tested against the current development version of `ansible-core`.
 
 ### Roles
 
-| Name                                           | Description                                  |
-| ---------------------------------------------- | -------------------------------------------- |
-| [dubzland.gitlab.gitlab_server][gitlab_server] | Install and configure the main GitLab server |
+| Name                                           | Description                                     |
+| ---------------------------------------------- | ----------------------------------------------- |
+| [dubzland.gitlab.gitlab_common][gitlab_common] | Sets up the GitLab apt repository               |
+| [dubzland.gitlab.gitlab_server][gitlab_server] | Install and configure the main GitLab server    |
+| [dubzland.gitlab.gitlab_runner][gitlab_runner] | Install and configure the GitLab Runner service |
 
 ## Licensing
 
-This collection is primarily licensed and distributed as a whole under the GNU General Public License v3.0 or later.
+This collection is primarily licensed and distributed as a whole under the MIT license.
 
-See [LICENSE](https://git.dubzland.com/dubzland/ansible-collection-minio/blob/main/LICENSE) for the full text.
+See [LICENSE](https://git.dubzland.com/dubzland/ansible-collection-gitlab/blob/main/LICENSE) for the full text.
 
 ## Author
 
 - [Josh Williams](https://codingprime.com)
 
+[gitlab_common]: https://docs.dubzland.io/ansible-collections/collections/dubzland/gitlab/gitlab_common_role.html
 [gitlab_server]: https://docs.dubzland.io/ansible-collections/collections/dubzland/gitlab/gitlab_server_role.html
+[gitlab_runner]: https://docs.dubzland.io/ansible-collections/collections/dubzland/gitlab/gitlab_runner_role.html

@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Test runner role
+      ansible.builtin.include_role:
+        name: dubzland.gitlab.gitlab_runner

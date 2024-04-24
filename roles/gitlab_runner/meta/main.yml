@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: gitlab_server
+  role_name: gitlab_runner
   author: dubzland
-  description: Installs and configures the GitLab DevOps server.
+  description: Installs a GitLab Runner instance.
   license: MIT
   min_ansible_version: "2.14"
 
@@ -28,7 +28,7 @@ galaxy_info:
 dependencies:
   - role: dubzland.gitlab.gitlab_common
     vars:
-      gitlab_common_gpg_key_url: "{{ gitlab_server_gpg_key_url }}"
-      gitlab_common_gpg_key_dest: "{{ gitlab_server_gpg_key_dest }}"
-      gitlab_common_repo_url: "{{ gitlab_server_repo_url }}"
-      gitlab_common_repo_dest: "{{ gitlab_server_repo_dest }}"
+      gitlab_common_gpg_key_url: "{{ gitlab_runner_gpg_key_url }}"
+      gitlab_common_gpg_key_dest: "{{ gitlab_runner_gpg_key_dest }}"
+      gitlab_common_repo_url: "{{ gitlab_runner_repo_url }}"
+      gitlab_common_repo_dest: "{{ gitlab_runner_repo_dest }}"

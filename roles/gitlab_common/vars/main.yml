@@ -1,0 +1,7 @@
+---
+gitlab_common_prerequisites:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - debian-archive-keyring
+  - gnupg

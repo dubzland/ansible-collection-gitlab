@@ -1,0 +1,27 @@
+---
+argument_specs:
+  main:
+    short_description: |
+      Configures a GitLab repository for installation.
+    description:
+      - Downloads and installs the repository gpg key.
+      - Creates the apt sources drop-in.
+      - Updates the package cache.
+    options:
+      gitlab_common_gpg_key_url:
+        type: str
+        description: Download location for the repository key.
+      gitlab_common_gpg_key_dest:
+        type: path
+        required: true
+        description: |
+          Location on the target filesystem where the gpg key is stored.
+      gitlab_common_repo_url:
+        type: str
+        required: true
+        description: Download location for the GitLab package repository.
+      gitlab_common_repo_dest:
+        type: path
+        required: true
+        description: |
+          Location on the target filesystem where the apt source drop-in should be stored.
