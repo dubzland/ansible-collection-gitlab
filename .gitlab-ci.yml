@@ -129,6 +129,8 @@ docs:
   extends: .ansible
   stage: test
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-python:3.12
+  variables:
+    ANSIBLE_COLLECTIONS_PATH: $CI_BUILDS_DIR/ansible/collections
   before_script:
     - apk add rsync
     - python -m pip install -r requirements-dev.txt
@@ -150,6 +152,8 @@ docs:
 build:
   stage: build
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-python:3.10
+  variables:
+    ANSIBLE_COLLECTIONS_PATH: $CI_BUILDS_DIR/ansible/collections
   cache:
     paths:
       - .cache/pip/
@@ -175,6 +179,8 @@ build:
 release:
   stage: deploy
   image: registry.gitlab.com/gitlab-org/release-cli:latest
+  variables:
+    ANSIBLE_COLLECTIONS_PATH: $CI_BUILDS_DIR/ansible/collections
   script:
     - |
       release-cli create --name "Release $CI_COMMIT_TAG" \
@@ -188,6 +194,8 @@ release:
 galaxy:
   stage: deploy
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/ci-python:3.10
+  variables:
+    ANSIBLE_COLLECTIONS_PATH: $CI_BUILDS_DIR/ansible/collections
   cache:
     paths:
       - .cache/pip/
