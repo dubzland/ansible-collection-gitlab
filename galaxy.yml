@@ -1,7 +1,7 @@
 ---
 namespace: dubzland
 name: gitlab
-version: "1.0.3"
+version: "1.1.0"
 readme: README.md
 authors:
   - Josh Williams <jdubz@dubzland.com>
