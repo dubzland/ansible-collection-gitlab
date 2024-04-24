@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: gitlab_server
+  role_name: gitlab_common
   author: dubzland
-  description: Installs and configures the GitLab DevOps server.
+  description: Performs tasks common to both Server and Runner.
   license: MIT
   min_ansible_version: "2.14"
 
@@ -25,5 +25,4 @@ galaxy_info:
     - debian
     - ubuntu
 
-dependencies:
-  - role: dubzland.gitlab.gitlab_common
+dependencies: []
