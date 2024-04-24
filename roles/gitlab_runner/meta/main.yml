@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: gitlab_runner
   author: dubzland
-  description: Installs, configures, and registers a GitLab Runner instance.
+  description: Installs a GitLab Runner instance.
   license: MIT
   min_ansible_version: "2.14"
 
