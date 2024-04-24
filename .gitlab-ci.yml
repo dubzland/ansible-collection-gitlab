@@ -86,7 +86,7 @@ stages:
     - python -m pip install -r requirements-test.txt
     - cd extensions
   script:
-    - molecule test
+    - molecule test --all
 
 sanity:
   extends:
