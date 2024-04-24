@@ -21,10 +21,11 @@ Also tested against the current development version of `ansible-core`.
 
 ### Roles
 
-| Name                                           | Description                                  |
-| ---------------------------------------------- | -------------------------------------------- |
-| [dubzland.gitlab.gitlab_common][gitlab_common] | Sets up the GitLab apt repository            |
-| [dubzland.gitlab.gitlab_server][gitlab_server] | Install and configure the main GitLab server |
+| Name                                           | Description                                     |
+| ---------------------------------------------- | ----------------------------------------------- |
+| [dubzland.gitlab.gitlab_common][gitlab_common] | Sets up the GitLab apt repository               |
+| [dubzland.gitlab.gitlab_server][gitlab_server] | Install and configure the main GitLab server    |
+| [dubzland.gitlab.gitlab_runner][gitlab_runner] | Install and configure the GitLab Runner service |
 
 ## Licensing
 
@@ -38,3 +39,4 @@ See [LICENSE](https://git.dubzland.com/dubzland/ansible-collection-minio/blob/ma
 
 [gitlab_common]: https://docs.dubzland.io/ansible-collections/collections/dubzland/gitlab/gitlab_common_role.html
 [gitlab_server]: https://docs.dubzland.io/ansible-collections/collections/dubzland/gitlab/gitlab_server_role.html
+[gitlab_runner]: https://docs.dubzland.io/ansible-collections/collections/dubzland/gitlab/gitlab_runner_role.html
