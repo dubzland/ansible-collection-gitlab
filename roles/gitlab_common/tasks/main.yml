@@ -15,8 +15,8 @@
 
 - name: Ensure the GitLab repository is available
   ansible.builtin.template:
-    src: etc/apt/sources.list.d/gitlab_gitlab-ee.list.j2
-    dest: /etc/apt/sources.list.d/gitlab_gitlab-ee.list
+    src: etc/apt/sources.list.d/gitlab.list.j2
+    dest: "{{ gitlab_common_repo_dest }}"
     owner: root
     group: root
     mode: "0644"

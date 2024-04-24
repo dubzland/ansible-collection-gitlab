@@ -1,0 +1,9 @@
+---
+# https://packages.gitlab.com/install/repositories/runner/gitlab-runner/config_file.list?os=debian&dist=bookworm&source=script
+gitlab_runner_gpg_key_url: >-
+  https://packages.gitlab.com/runner/gitlab-runner/gpgkey
+gitlab_runner_gpg_key_dest: >-
+  /usr/share/keyrings/runner_gitlab-runner-archive-keyring.asc
+gitlab_runner_repo_url: "https://packages.gitlab.com/runner/gitlab-runner/\
+  {{ ansible_distribution | lower }}/"
+gitlab_runner_repo_dest: /etc/apt/sources.list.d/runner_gitlab-runner.list

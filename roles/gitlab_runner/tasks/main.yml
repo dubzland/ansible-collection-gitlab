@@ -1,0 +1,4 @@
+---
+- name: Ensure GitLab Runner is installed
+  ansible.builtin.package:
+    name: gitlab-runner

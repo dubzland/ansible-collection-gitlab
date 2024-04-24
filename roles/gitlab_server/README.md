@@ -38,7 +38,7 @@ Then apply the server role using the following playbook:
 
 ## License
 
-MIT
+GPLv3
 
 ## Author
 

@@ -5,7 +5,7 @@ by the `gitlab_server` and `gitlab_runner` roles.
 
 ## License
 
-MIT
+GPLv3
 
 ## Author
 
