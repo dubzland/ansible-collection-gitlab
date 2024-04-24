@@ -3,9 +3,8 @@ variables:
   DOCKER_BUILDKIT: 1
   DOCKER_TLS_CERTDIR: "/certs"
   BASH_ENV: /root/.bashrc
-  ANSIBLE_COLLECTIONS_PATH: $CI_BUILDS_DIR/ansible/collections
   REGISTRY_PROXY_URL: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/
-  GIT_CLONE_PATH: $ANSIBLE_COLLECTIONS_PATH/ansible_collections/$CI_PROJECT_NAMESPACE/gitlab
+  GIT_CLONE_PATH: $CI_BUILDS_DIR/ansible/collections/ansible_collections/$CI_PROJECT_NAMESPACE/gitlab
   XDG_CACHE_DIR: "$CI_PROJECT_DIR/.cache"
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   PY_COLORS: "1"
@@ -31,17 +30,12 @@ stages:
 .full-ci:
   parallel:
     matrix:
-      - PYTHON_VERSION: "3.8"
-        ANSIBLE_VERSION:
-          - "stable-2.13"
       - PYTHON_VERSION: "3.9"
         ANSIBLE_VERSION:
-          - "stable-2.13"
           - "stable-2.14"
           - "stable-2.15"
       - PYTHON_VERSION: "3.10"
         ANSIBLE_VERSION:
-          - "stable-2.13"
           - "stable-2.14"
           - "stable-2.15"
           - "stable-2.16"
@@ -84,7 +78,6 @@ stages:
     - echo -e "[global]\ncache-dir = $PIP_CACHE_DIR" > /etc/pip.conf
     - python -m pip install https://github.com/ansible/ansible/archive/${ANSIBLE_VERSION}.tar.gz
     - python -m pip install -r requirements-test.txt
-    - cd extensions
   script:
     - molecule test --all
 
