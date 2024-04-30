@@ -34,6 +34,15 @@ Then apply the server role using the following playbook:
         user: root
         job: "CRON=1 /opt/gitlab/bin/gitlab-backup create"
         cron_file: gitlab-backup
+    - name: Schedule GitLab Registry garbage collection
+      ansible.builtin.cron:
+        name: GitLab Registry garbage collection
+        weekday: "*"
+        minute: "0"
+        hour: "4"
+        user: root
+        job: "gitlab-ctl registry-garbage-collect -m"
+        cron_file: gitlab-registry-gc
 ```
 
 ## License
