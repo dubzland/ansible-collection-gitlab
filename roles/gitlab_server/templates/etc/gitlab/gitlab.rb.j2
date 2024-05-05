@@ -1811,7 +1811,7 @@ puma['worker_processes'] = {{ gitlab_server_puma_worker_processes }}
 ################################################################################
 
 # nginx['enable'] = true
-# nginx['client_max_body_size'] = '250m'
+nginx['client_max_body_size'] = '{{ gitlab_server_nginx_client_max_body_size }}'
 nginx['redirect_http_to_https'] = {{ gitlab_server_nginx_redirect_http_to_https | lower }}
 # nginx['redirect_http_to_https_port'] = 80
 
