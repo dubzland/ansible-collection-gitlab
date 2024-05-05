@@ -66,9 +66,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - GitLab server role
 
-[1.1.0]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/compare/1.0.3...1.1.0
-[1.0.3]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/compare/1.0.2...1.0.3
-[1.0.2]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/compare/1.0.1...1.0.2
-[1.0.1]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/compare/1.0.0...1.0.1
-[1.0.0]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/compare/0.0.1...1.0.0
-[0.0.1]: https://git.dubzland.com/dubzland/ansible-collection-gitlab/-/tree/0.0.1
+[1.1.0]: https://git.dubzland.com/dubzland/ansible-collections/gitlab/-/compare/1.0.3...1.1.0
+[1.0.3]: https://git.dubzland.com/dubzland/ansible-collections/gitlab/-/compare/1.0.2...1.0.3
+[1.0.2]: https://git.dubzland.com/dubzland/ansible-collections/gitlab/-/compare/1.0.1...1.0.2
+[1.0.1]: https://git.dubzland.com/dubzland/ansible-collections/gitlab/-/compare/1.0.0...1.0.1
+[1.0.0]: https://git.dubzland.com/dubzland/ansible-collections/gitlab/-/compare/0.0.1...1.0.0
+[0.0.1]: https://git.dubzland.com/dubzland/ansible-collections/gitlab/-/tree/0.0.1
