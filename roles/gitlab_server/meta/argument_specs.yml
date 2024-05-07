@@ -21,7 +21,7 @@ argument_specs:
           used.  Primarily exists for reducing resource usage during CI runs.
       gitlab_server_nginx_client_max_body_size:
         type: str
-        default: 256m
+        default: 250m
         description: Maximum payload size allowed by Nginx.
       gitlab_server_nginx_redirect_http_to_https:
         type: bool
