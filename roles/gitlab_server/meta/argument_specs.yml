@@ -51,6 +51,44 @@ argument_specs:
       gitlab_server_nginx_real_ip_recursive:
         type: bool
         description: Enable Nginx Real-Ip recursive search.
+      gitlab_server_postgresql_enabled:
+        type: bool
+        default: true
+        description: |-
+          Enable the omnibus embedded PostgreSQL server.  Set to "false" to use
+          an external PostgreSQL server.
+      gitlab_server_postgresql_host:
+        type: str
+        description: |-
+          Hostname or IP address of an external PostgreSQL server. See the
+          [GitLab documentation](https://docs.gitlab.com/ee/administration/postgresql/external.html)
+          for more information on configuring an external PostgreSQL server.
+
+          Note: This setting only applies if O(gitlab_server_postgresql_enabled)
+          is v(false).
+      gitlab_server_postgresql_port:
+        type: int
+        description: |-
+          Port the external PostgreSQL server is accepting connections on. See the
+          [GitLab documentation](https://docs.gitlab.com/ee/administration/postgresql/external.html)
+          for more information on configuring an external PostgreSQL server.
+
+          Note: This setting only applies if O(gitlab_server_postgresql_enabled)
+          is v(false).
+      gitlab_server_postgresql_password:
+        type: str
+        description: |-
+          Password used to authenticate with the external PostgreSQL server.
+
+          Note: This setting only applies if O(gitlab_server_postgresql_enabled)
+          is v(false).
+      gitlab_server_postgresql_encoding:
+        type: str
+        description: |-
+          Encoding used by the external PostgreSQL server.
+
+          Note: This setting only applies if O(gitlab_server_postgresql_enabled)
+          is v(false).
       gitlab_server_smtp_enable:
         type: bool
         description: >-
