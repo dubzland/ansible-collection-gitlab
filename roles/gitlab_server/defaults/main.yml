@@ -6,6 +6,7 @@ gitlab_server_default_theme: 2
 #
 # Nginx base configuration
 #
+gitlab_server_nginx_client_max_body_size: 250m
 gitlab_server_nginx_redirect_http_to_https: false
 gitlab_server_nginx_listen_addresses:
   - "*"
