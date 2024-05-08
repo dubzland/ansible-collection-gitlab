@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `client_max_body_size` configuration option for Nginx (#26)
+- Add configuration for an external PostgreSQL server. (#29)
 
 ### Changed
 

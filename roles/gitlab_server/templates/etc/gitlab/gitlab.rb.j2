@@ -882,13 +882,29 @@ gitlab_rails['backup_keep_time'] = {{ gitlab_server_backup_keep_time }}
 ###! Docs: https://docs.gitlab.com/omnibus/settings/database.html
 ###! **Only needed if you use an external database.**
 # gitlab_rails['db_adapter'] = "postgresql"
+{% if gitlab_server_postgresql_enabled is defined and not gitlab_server_postgresql_enabled and gitlab_server_postgresql_encoding is defined %}
+gitlab_rails['db_encoding'] = "{{ gitlab_server_postgresql_encoding }}"
+{% else %}
 # gitlab_rails['db_encoding'] = "unicode"
+{% endif %}
 # gitlab_rails['db_collation'] = nil
 # gitlab_rails['db_database'] = "gitlabhq_production"
 # gitlab_rails['db_username'] = "gitlab"
+{% if gitlab_server_postgresql_enabled is defined and not gitlab_server_postgresql_enabled and gitlab_server_postgresql_password is defined %}
+gitlab_rails['db_password'] = "{{ gitlab_server_postgresql_password }}"
+{% else %}
 # gitlab_rails['db_password'] = nil
+{% endif %}
+{% if gitlab_server_postgresql_enabled is defined and not gitlab_server_postgresql_enabled and gitlab_server_postgresql_host is defined %}
+gitlab_rails['db_host'] = "{{ gitlab_server_postgresql_host }}"
+{% else %}
 # gitlab_rails['db_host'] = nil
+{% endif %}
+{% if gitlab_server_postgresql_enabled is defined and not gitlab_server_postgresql_enabled and gitlab_server_postgresql_port is defined %}
+gitlab_rails['db_port'] = {{ gitlab_server_postgresql_port }}
+{% else %}
 # gitlab_rails['db_port'] = 5432
+{% endif %}
 # gitlab_rails['db_socket'] = nil
 # gitlab_rails['db_sslmode'] = nil
 # gitlab_rails['db_sslcompression'] = 0
@@ -1518,7 +1534,11 @@ puma['worker_processes'] = {{ gitlab_server_puma_worker_processes }}
 ###! By default, reconfigure reloads postgresql if it is running. If you
 ###! change any of these settings, be sure to run `gitlab-ctl restart postgresql`
 ###! after reconfigure in order for the changes to take effect.
+{% if gitlab_server_postgresql_enabled is defined %}
+postgresql['enable'] = {{ gitlab_server_postgresql_enabled | lower }}
+{% else %}
 # postgresql['enable'] = true
+{% endif %}
 # postgresql['listen_address'] = nil
 # postgresql['port'] = 5432
 
