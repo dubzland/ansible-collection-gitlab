@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Update README badges and LICENSEs (#25)
 - Moved repository to `dubzland/ansible-collections/gitlab` (#38)
 
 ## [1.1.0] - 2024-04-24
