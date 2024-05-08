@@ -33,7 +33,7 @@ Also tested against the current development version of `ansible-core`.
 
 This collection is primarily licensed and distributed as a whole under the MIT license.
 
-See [LICENSE](https://git.dubzland.com/dubzland/ansible-collections/gitlab/blob/main/LICENSE) for the full text.
+See [LICENSES/MIT.txt](LICENSES/MIT.txt) for the full text.
 
 ## Author
 
