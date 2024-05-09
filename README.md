@@ -43,7 +43,6 @@ See [LICENSES/MIT.txt](LICENSES/MIT.txt) for the full text.
 [pipeline-url]: https://git.dubzland.com/dubzland/ansible-collections/gitlab/pipelines?scope=all&page=1&ref=main
 [coverage-badge]: https://img.shields.io/gitlab/pipeline-coverage/dubzland%2Fansible-collections%2Fgitlab?gitlab_url=https%3A%2F%2Fgit.dubzland.com&branch=main&style=flat-square&logo=gitlab
 [coverage-url]: https://git.dubzland.com/dubzland/ansible-collections/gitlab/pipelines?scope=all&page=1&ref=main
-
 [galaxy-badge]: https://img.shields.io/badge/dynamic/json?style=flat-square&label=galaxy&prefix=v&url=https://galaxy.ansible.com/api/v3/collections/dubzland/gitlab/&query=highest_version.version
 [galaxy-url]: https://galaxy.ansible.com/ui/repo/published/dubzland/gitlab/
 [license-badge]: https://img.shields.io/gitlab/license/dubzland%2Fcontainer-images%2Fci-python?gitlab_url=https%3A%2F%2Fgit.dubzland.com&style=flat-square
